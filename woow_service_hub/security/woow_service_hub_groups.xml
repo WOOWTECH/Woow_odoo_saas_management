@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Module category (appears in Settings → Users as its own dropdown) -->
+    <record id="module_category_woow_service_hub" model="ir.module.category">
+        <field name="name">Service Hub</field>
+        <field name="sequence">200</field>
+    </record>
+
+    <!-- User group: read-only access to services -->
+    <record id="woow_service_hub_group_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_woow_service_hub"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Admin group: full CRUD, implies User -->
+    <record id="woow_service_hub_group_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_category_woow_service_hub"/>
+        <field name="implied_ids" eval="[(4, ref('woow_service_hub_group_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+</odoo>

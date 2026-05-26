@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_woow_service_user,woow.service.user,model_woow_service,woow_service_hub_group_user,1,0,0,0
+access_woow_service_admin,woow.service.admin,model_woow_service,woow_service_hub_group_admin,1,1,1,1
+access_woow_service_category_user,woow.service.category.user,model_woow_service_category,woow_service_hub_group_user,1,0,0,0
+access_woow_service_category_admin,woow.service.category.admin,model_woow_service_category,woow_service_hub_group_admin,1,1,1,1
+access_woow_service_portal,woow.service.portal,model_woow_service,base.group_portal,1,0,0,0

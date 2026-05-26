@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- ============================================================ -->
+        <!--                    Categories (colour tags)                  -->
+        <!-- ============================================================ -->
+        <record id="category_communication" model="woow.service.category">
+            <field name="name">Communication</field>
+            <field name="color">1</field>
+        </record>
+        <record id="category_project_mgmt" model="woow.service.category">
+            <field name="name">Project Management</field>
+            <field name="color">2</field>
+        </record>
+        <record id="category_dev_tools" model="woow.service.category">
+            <field name="name">DevOps / Dev Tools</field>
+            <field name="color">4</field>
+        </record>
+        <record id="category_design" model="woow.service.category">
+            <field name="name">Design</field>
+            <field name="color">3</field>
+        </record>
+        <record id="category_cloud" model="woow.service.category">
+            <field name="name">Cloud / Infra</field>
+            <field name="color">5</field>
+        </record>
+        <record id="category_analytics" model="woow.service.category">
+            <field name="name">Analytics</field>
+            <field name="color">6</field>
+        </record>
+        <record id="category_storage" model="woow.service.category">
+            <field name="name">Storage / Docs</field>
+            <field name="color">7</field>
+        </record>
+        <record id="category_security" model="woow.service.category">
+            <field name="name">Security</field>
+            <field name="color">9</field>
+        </record>
+        <record id="category_hr" model="woow.service.category">
+            <field name="name">HR / People</field>
+            <field name="color">10</field>
+        </record>
+        <record id="category_finance" model="woow.service.category">
+            <field name="name">Finance</field>
+            <field name="color">8</field>
+        </record>
+
+        <!-- ============================================================ -->
+        <!--                    Services                                  -->
+        <!-- ============================================================ -->
+
+        <!-- 1. Slack — Communication, Active -->
+        <record id="service_slack" model="woow.service">
+            <field name="name">Slack</field>
+            <field name="icon">fa-slack</field>
+            <field name="color">4</field>
+            <field name="url">woowtech.slack.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_communication')])]"/>
+            <field name="description">&lt;p&gt;Team messaging and collaboration platform. All internal communications happen here.&lt;/p&gt;</field>
+            <field name="notes">Workspace: woowtech.slack.com — admin: IT team</field>
+        </record>
+
+        <!-- 2. GitHub — DevOps, Active -->
+        <record id="service_github" model="woow.service">
+            <field name="name">GitHub</field>
+            <field name="icon">fa-github</field>
+            <field name="color">10</field>
+            <field name="url">github.com/woowtech</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_dev_tools')])]"/>
+            <field name="description">&lt;p&gt;Source code hosting and version control. All repositories are managed here.&lt;/p&gt;</field>
+            <field name="notes">Org: woowtech — Enterprise plan</field>
+        </record>
+
+        <!-- 3. Figma — Design, Active -->
+        <record id="service_figma" model="woow.service">
+            <field name="name">Figma</field>
+            <field name="icon">fa-paint-brush</field>
+            <field name="color">3</field>
+            <field name="url">figma.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_design')])]"/>
+            <field name="description">&lt;p&gt;Collaborative UI/UX design tool. All mockups and prototypes are created here.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 4. Jira — Project Management, Active -->
+        <record id="service_jira" model="woow.service">
+            <field name="name">Jira</field>
+            <field name="icon">fa-tasks</field>
+            <field name="color">2</field>
+            <field name="url">woowtech.atlassian.net</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_project_mgmt')])]"/>
+            <field name="description">&lt;p&gt;Issue tracking and agile project management for engineering sprints.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 5. Google Workspace — Communication + Storage, Active -->
+        <record id="service_google_workspace" model="woow.service">
+            <field name="name">Google Workspace</field>
+            <field name="icon">fa-google</field>
+            <field name="color">1</field>
+            <field name="url">workspace.google.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_communication'), ref('category_storage')])]"/>
+            <field name="description">&lt;p&gt;Gmail, Drive, Calendar, Meet — our core productivity suite.&lt;/p&gt;</field>
+            <field name="notes">Domain: woowtech.com — Business Standard plan</field>
+        </record>
+
+        <!-- 6. AWS Console — Cloud, Active -->
+        <record id="service_aws" model="woow.service">
+            <field name="name">AWS Console</field>
+            <field name="icon">fa-cloud</field>
+            <field name="color">5</field>
+            <field name="url">console.aws.amazon.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_cloud')])]"/>
+            <field name="description">&lt;p&gt;Amazon Web Services management console. Production infrastructure runs here.&lt;/p&gt;</field>
+            <field name="notes">Account ID: 123456789 — ap-northeast-1 region</field>
+        </record>
+
+        <!-- 7. Grafana — Analytics + DevOps, Active -->
+        <record id="service_grafana" model="woow.service">
+            <field name="name">Grafana</field>
+            <field name="icon">fa-line-chart</field>
+            <field name="color">6</field>
+            <field name="url">grafana.woowtech.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_analytics'), ref('category_dev_tools')])]"/>
+            <field name="description">&lt;p&gt;Monitoring dashboards for application performance and infrastructure metrics.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 8. Notion — Storage/Docs + Project Mgmt, Trial -->
+        <record id="service_notion" model="woow.service">
+            <field name="name">Notion</field>
+            <field name="icon">fa-file-text-o</field>
+            <field name="color">7</field>
+            <field name="url">notion.so</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_storage'), ref('category_project_mgmt')])]"/>
+            <field name="description">&lt;p&gt;All-in-one workspace for notes, docs, and knowledge base. Currently evaluating as a wiki replacement.&lt;/p&gt;</field>
+            <field name="notes">Trial expires 2026-07-01 — evaluating Team plan</field>
+        </record>
+
+        <!-- 9. 1Password — Security, Active -->
+        <record id="service_1password" model="woow.service">
+            <field name="name">1Password</field>
+            <field name="icon">fa-lock</field>
+            <field name="color">9</field>
+            <field name="url">woowtech.1password.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_security')])]"/>
+            <field name="description">&lt;p&gt;Team password manager. All shared credentials and secrets are stored here.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 10. Linear — Project Management, Trial -->
+        <record id="service_linear" model="woow.service">
+            <field name="name">Linear</field>
+            <field name="icon">fa-bolt</field>
+            <field name="color">2</field>
+            <field name="url">linear.app</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_project_mgmt')])]"/>
+            <field name="description">&lt;p&gt;Modern issue tracker being evaluated as a Jira alternative. Faster and cleaner UI.&lt;/p&gt;</field>
+            <field name="notes">Trial started 2026-05-01 — comparing with Jira</field>
+        </record>
+
+        <!-- 11. Sentry — DevOps, Active -->
+        <record id="service_sentry" model="woow.service">
+            <field name="name">Sentry</field>
+            <field name="icon">fa-bug</field>
+            <field name="color">4</field>
+            <field name="url">woowtech.sentry.io</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_dev_tools')])]"/>
+            <field name="description">&lt;p&gt;Error tracking and performance monitoring for all production applications.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 12. HackMD — Storage/Docs, Planned -->
+        <record id="service_hackmd" model="woow.service">
+            <field name="name">HackMD</field>
+            <field name="icon">fa-pencil-square-o</field>
+            <field name="color">7</field>
+            <field name="url">hackmd.io</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_storage')])]"/>
+            <field name="description">&lt;p&gt;Collaborative Markdown editor. Planning to use for technical documentation.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 13. Odoo — ERP/Finance/HR, Active -->
+        <record id="service_odoo" model="woow.service">
+            <field name="name">Odoo ERP</field>
+            <field name="icon">fa-building</field>
+            <field name="color">8</field>
+            <field name="url">localhost:9103</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_finance'), ref('category_hr')])]"/>
+            <field name="description">&lt;p&gt;Our ERP system — accounting, HR, inventory, and this very service hub!&lt;/p&gt;</field>
+            <field name="notes">Internal instance — Odoo 18 Community</field>
+        </record>
+
+        <!-- 14. Trello — Project Management, Retired -->
+        <record id="service_trello" model="woow.service">
+            <field name="name">Trello</field>
+            <field name="icon">fa-trello</field>
+            <field name="color">2</field>
+            <field name="url">trello.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_project_mgmt')])]"/>
+            <field name="description">&lt;p&gt;Previously used for task management. Migrated to Jira in 2025.&lt;/p&gt;</field>
+            <field name="notes">Archived — data exported to Jira on 2025-12-31</field>
+        </record>
+
+        <!-- 15. Heroku — Cloud, Retired -->
+        <record id="service_heroku" model="woow.service">
+            <field name="name">Heroku</field>
+            <field name="icon">fa-server</field>
+            <field name="color">5</field>
+            <field name="url">dashboard.heroku.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_cloud')])]"/>
+            <field name="description">&lt;p&gt;Former PaaS for staging environments. Migrated to K3s/Podman.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 16. n8n — DevOps, Active (no icon — tests initial fallback) -->
+        <record id="service_n8n" model="woow.service">
+            <field name="name">n8n Automation</field>
+            <field name="color">4</field>
+            <field name="url">n8n.woowtech.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_dev_tools')])]"/>
+            <field name="description">&lt;p&gt;Workflow automation platform. Connects services and automates repetitive tasks.&lt;/p&gt;</field>
+            <field name="notes">Self-hosted on K3s</field>
+        </record>
+
+        <!-- 17. Miro — Design + Project Mgmt, Active (no icon — tests initial fallback) -->
+        <record id="service_miro" model="woow.service">
+            <field name="name">Miro</field>
+            <field name="color">3</field>
+            <field name="url">miro.com</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_design'), ref('category_project_mgmt')])]"/>
+            <field name="description">&lt;p&gt;Online collaborative whiteboard for brainstorming and planning.&lt;/p&gt;</field>
+        </record>
+
+        <!-- 18. Tailscale — Security + Cloud, Planned (no URL — tests UserError) -->
+        <record id="service_tailscale" model="woow.service">
+            <field name="name">Tailscale</field>
+            <field name="icon">fa-shield</field>
+            <field name="color">9</field>
+
+            <field name="category_ids"
+                   eval="[(6, 0, [ref('category_security'), ref('category_cloud')])]"/>
+            <field name="description">&lt;p&gt;Zero-config VPN mesh network. Planning to replace current WireGuard setup.&lt;/p&gt;</field>
+            <field name="notes">Evaluating pricing — team plan needed</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portal users: can only read services shared with them -->
+    <record id="woow_service_portal_rule" model="ir.rule">
+        <field name="name">Portal: shared services only</field>
+        <field name="model_id" ref="model_woow_service"/>
+        <field name="domain_force">[('share_partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Internal users (User group): read all services -->
+    <record id="woow_service_user_rule" model="ir.rule">
+        <field name="name">User: read all services</field>
+        <field name="model_id" ref="model_woow_service"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('woow_service_hub_group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Admin group: full access, no domain restriction -->
+    <record id="woow_service_admin_rule" model="ir.rule">
+        <field name="name">Admin: full access</field>
+        <field name="model_id" ref="model_woow_service"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('woow_service_hub_group_admin'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+</odoo>
