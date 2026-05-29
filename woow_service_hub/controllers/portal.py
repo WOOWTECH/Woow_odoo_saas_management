@@ -19,7 +19,7 @@ class WoowServicePortal(CustomerPortal):
     def _service_get_searchbar_sortings(self):
         return {
             "name": {"label": "Name", "order": "name asc"},
-            "category": {"label": "Category", "order": "category_ids asc, name asc"},
+            "category": {"label": "Category", "order": "name asc"},
         }
 
     @http.route(
@@ -61,6 +61,12 @@ class WoowServicePortal(CustomerPortal):
         services = ServiceSudo.search(
             domain, order=order, limit=18, offset=pager["offset"]
         )
+
+        # Python-level sort by first category name (M2M can't be SQL-sorted)
+        if sortby == "category":
+            services = services.sorted(
+                key=lambda s: (s.category_ids[:1].name or "", s.name or "")
+            )
 
         values = self._prepare_portal_layout_values()
         values.update(
