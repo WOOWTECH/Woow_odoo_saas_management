@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- ============================================================ -->
-    <!--         Portal sidebar: add "Services" entry                 -->
-    <!-- ============================================================ -->
+    <!-- ============================================================
+         Portal Home — "Services" entry card
+         ============================================================ -->
     <template id="portal_my_home_service"
               name="Show Services"
               inherit_id="portal.portal_my_home"
@@ -20,9 +20,9 @@
         </xpath>
     </template>
 
-    <!-- ============================================================ -->
-    <!--         Breadcrumbs for /my/services pages                   -->
-    <!-- ============================================================ -->
+    <!-- ============================================================
+         Breadcrumbs for /my/services pages
+         ============================================================ -->
     <template id="portal_my_services_breadcrumbs"
               name="Service Breadcrumbs"
               inherit_id="portal.portal_breadcrumbs"
@@ -38,132 +38,225 @@
         </xpath>
     </template>
 
-    <!-- ============================================================ -->
-    <!--         /my/services — Card grid of shared services          -->
-    <!-- ============================================================ -->
+    <!-- ============================================================
+         /my/services — Service card grid with searchbar + pager
+         ============================================================ -->
     <template id="portal_my_services" name="My Services">
         <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Services</t>
+            </t>
+
+            <t t-if="not services">
+                <div class="alert alert-warning" role="alert">
+                    No services have been shared with you yet.
+                </div>
+            </t>
 
             <t t-if="services">
-                <div class="woow_service_card_grid">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2">
                     <t t-foreach="services" t-as="s">
-                        <div class="woow_service_card">
-                            <!-- Logo / Icon / Initial -->
-                            <div class="woow_service_card_avatar">
-                                <t t-if="s.logo">
-                                    <img t-attf-src="/web/image/woow.service/#{s.id}/logo/90x90"
-                                         class="rounded" alt="Logo"
-                                         style="width:64px;height:64px;object-fit:cover;"/>
-                                </t>
-                                <t t-elif="s.icon">
-                                    <span class="woow_service_card_icon rounded bg-light d-flex align-items-center justify-content-center"
-                                          style="width:64px;height:64px;font-size:2rem;">
-                                        <i t-attf-class="fa #{s.icon}"/>
-                                    </span>
-                                </t>
-                                <t t-else="">
-                                    <span class="woow_service_card_initial rounded d-flex align-items-center justify-content-center text-white fw-bold"
-                                          style="width:64px;height:64px;font-size:1.8rem;background-color:#00897B;">
-                                        <t t-esc="(s.name or '?')[0].upper()"/>
-                                    </span>
-                                </t>
-                            </div>
-                            <!-- Info -->
-                            <div class="woow_service_card_body">
-                                <a t-attf-href="/my/services/#{s.id}" class="woow_service_card_title">
-                                    <t t-esc="s.name"/>
-                                </a>
-                            </div>
-                            <!-- Open button -->
-                            <div class="woow_service_card_action">
-                                <t t-if="s.full_url">
-                                    <a t-att-href="s.full_url" target="_blank"
-                                       class="btn btn-primary btn-sm">
-                                        <i class="fa fa-external-link me-1"/>Open
-                                    </a>
-                                </t>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body d-flex align-items-center gap-3">
+                                    <!-- Logo / Icon / Initial -->
+                                    <t t-if="s.logo">
+                                        <img t-attf-src="/web/image/woow.service/#{s.id}/logo/64x64"
+                                             class="rounded flex-shrink-0" alt="Logo"
+                                             style="width:48px;height:48px;object-fit:cover;"/>
+                                    </t>
+                                    <t t-elif="s.icon">
+                                        <span class="rounded bg-light d-flex align-items-center justify-content-center flex-shrink-0"
+                                              style="width:48px;height:48px;font-size:1.5rem;">
+                                            <i t-attf-class="fa #{s.icon}"/>
+                                        </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="rounded d-flex align-items-center justify-content-center text-white fw-bold flex-shrink-0"
+                                              style="width:48px;height:48px;font-size:1.3rem;background-color:#00897B;">
+                                            <t t-esc="(s.name or '?')[0].upper()"/>
+                                        </span>
+                                    </t>
+
+                                    <!-- Name -->
+                                    <div class="flex-grow-1 min-w-0">
+                                        <a t-attf-href="/my/services/#{s.id}"
+                                           class="fw-semibold text-decoration-none text-truncate d-block">
+                                            <t t-esc="s.name"/>
+                                        </a>
+                                        <t t-if="s.category_ids">
+                                            <small class="text-muted">
+                                                <t t-foreach="s.category_ids" t-as="cat">
+                                                    <span class="badge text-bg-light border me-1"><t t-esc="cat.name"/></span>
+                                                </t>
+                                            </small>
+                                        </t>
+                                    </div>
+
+                                    <!-- Open button -->
+                                    <t t-if="s.full_url">
+                                        <a t-att-href="s.full_url" target="_blank"
+                                           class="btn btn-primary btn-sm flex-shrink-0">
+                                            <i class="fa fa-external-link me-1"/>Open
+                                        </a>
+                                    </t>
+                                </div>
                             </div>
                         </div>
                     </t>
                 </div>
-            </t>
-            <t t-else="">
-                <div class="alert alert-info" role="alert">
-                    No services have been shared with you yet.
+
+                <!-- Pager -->
+                <div class="mt-3">
+                    <t t-call="portal.pager"/>
                 </div>
             </t>
         </t>
     </template>
 
-    <!-- ============================================================ -->
-    <!--       /my/services/<id> — Service detail page                -->
-    <!-- ============================================================ -->
-    <template id="portal_my_service_detail" name="Service Detail">
-        <t t-call="portal.portal_layout">
-            <t t-set="o_portal_fullwidth_alert" groups="woow_service_hub.woow_service_hub_group_user">
-                <t t-call="portal.portal_back_in_edit_mode">
-                    <t t-set="backend_url" t-value="'/odoo/woow-service/%s' % service.id"/>
-                </t>
-            </t>
+    <!-- ============================================================
+         /my/services/<id> — Service Detail with Sidebar + Chatter
+         ============================================================ -->
+    <template id="portal_my_service_detail" name="Service Detail"
+              inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
 
-            <div class="card mt-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-start mb-3">
-                        <!-- Logo / Icon / Initial -->
-                        <div class="me-3">
-                            <t t-if="service.logo">
-                                <img t-attf-src="/web/image/woow.service/#{service.id}/logo/128x128"
-                                     class="rounded" alt="Logo"
-                                     style="width:96px;height:96px;object-fit:cover;"/>
-                            </t>
-                            <t t-elif="service.icon">
-                                <span class="rounded bg-light d-flex align-items-center justify-content-center"
-                                      style="width:96px;height:96px;font-size:3rem;">
-                                    <i t-attf-class="fa #{service.icon}"/>
-                                </span>
-                            </t>
-                            <t t-else="">
-                                <span class="rounded d-flex align-items-center justify-content-center text-white fw-bold"
-                                      style="width:96px;height:96px;font-size:2.5rem;background-color:#00897B;">
-                                    <t t-esc="(service.name or '?')[0].upper()"/>
-                                </span>
-                            </t>
+            <div class="row">
+                <!-- Sidebar -->
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-4 col-xxl-3 d-print-none'"/>
+
+                    <t t-set="entries">
+                        <div class="d-flex flex-wrap flex-column gap-4">
+                            <!-- Navigation -->
+                            <div class="d-flex align-items-center flex-grow-1 p-0" t-ignore="true" role="complementary">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link p-0" href="#card_header">Service Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link p-0" href="#service_chat">History</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Service Info -->
+                            <div class="d-flex flex-column gap-2">
+                                <!-- Avatar -->
+                                <div class="text-center mb-2">
+                                    <t t-if="service.logo">
+                                        <img t-attf-src="/web/image/woow.service/#{service.id}/logo/128x128"
+                                             class="rounded" alt="Logo"
+                                             style="width:80px;height:80px;object-fit:cover;"/>
+                                    </t>
+                                    <t t-elif="service.icon">
+                                        <span class="rounded bg-light d-inline-flex align-items-center justify-content-center"
+                                              style="width:80px;height:80px;font-size:2.5rem;">
+                                            <i t-attf-class="fa #{service.icon}"/>
+                                        </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="rounded d-inline-flex align-items-center justify-content-center text-white fw-bold"
+                                              style="width:80px;height:80px;font-size:2rem;background-color:#00897B;">
+                                            <t t-esc="(service.name or '?')[0].upper()"/>
+                                        </span>
+                                    </t>
+                                </div>
+                                <t t-if="service.category_ids">
+                                    <div>
+                                        <small class="text-muted">Categories</small><br/>
+                                        <t t-foreach="service.category_ids" t-as="cat">
+                                            <span class="badge text-bg-light border me-1"><t t-esc="cat.name"/></span>
+                                        </t>
+                                    </div>
+                                </t>
+                                <t t-if="service.url">
+                                    <div>
+                                        <small class="text-muted">URL</small><br/>
+                                        <span class="text-break"><t t-esc="service.url"/></span>
+                                    </div>
+                                </t>
+                                <t t-if="service.internal_manager_id">
+                                    <div>
+                                        <small class="text-muted">Manager</small><br/>
+                                        <span t-esc="service.internal_manager_id.name"/>
+                                    </div>
+                                </t>
+                            </div>
+
+                            <!-- Action Button -->
+                            <div class="d-flex flex-column gap-2">
+                                <t t-if="service.full_url">
+                                    <a t-att-href="service.full_url" target="_blank"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-external-link me-1"/>Open Service
+                                    </a>
+                                </t>
+                            </div>
                         </div>
-                        <!-- Title -->
-                        <div class="flex-grow-1">
-                            <h3 class="mb-1"><t t-esc="service.name"/></h3>
+                    </t>
+                </t>
+
+                <!-- Main Content -->
+                <div id="service_content" class="o_portal_content col-12 col-lg-8 col-xxl-9">
+                    <t t-set="o_portal_fullwidth_alert" groups="woow_service_hub.woow_service_hub_group_user">
+                        <t t-call="portal.portal_back_in_edit_mode">
+                            <t t-set="backend_url" t-value="'/odoo/woow-service/%s' % service.id"/>
+                        </t>
+                    </t>
+
+                    <div id="card">
+                        <div id="card_header" data-anchor="true">
+                            <div class="row justify-content-between mb-3">
+                                <div class="col-12 col-md-9">
+                                    <h3 class="my-0">
+                                        <t t-esc="service.name"/>
+                                    </h3>
+                                </div>
+                                <div class="col-auto">
+                                    <t t-if="service.full_url">
+                                        <a t-att-href="service.full_url" target="_blank"
+                                           class="btn btn-primary btn-sm d-none d-lg-inline-block">
+                                            <i class="fa fa-external-link me-1"/>Open Service
+                                        </a>
+                                    </t>
+                                </div>
+                            </div>
                         </div>
-                        <!-- Open button -->
-                        <div>
-                            <t t-if="service.full_url">
-                                <a t-att-href="service.full_url" target="_blank"
-                                   class="btn btn-primary">
-                                    <i class="fa fa-external-link me-1"/>Open Service
-                                </a>
-                            </t>
+
+                        <div id="card_body">
+                            <!-- Categories -->
+                            <div t-if="service.category_ids" class="mb-3">
+                                <t t-foreach="service.category_ids" t-as="cat">
+                                    <span class="badge text-bg-secondary me-1"><t t-esc="cat.name"/></span>
+                                </t>
+                            </div>
+
+                            <!-- Description -->
+                            <div t-if="service.description" class="mb-4">
+                                <h5 class="mb-1">Description</h5>
+                                <hr class="mt-1 mb-2"/>
+                                <div t-out="service.description"/>
+                            </div>
                         </div>
                     </div>
-                    <!-- Description -->
-                    <t t-if="service.description">
-                        <hr/>
-                        <div class="woow_service_description" t-out="service.description"/>
-                    </t>
+
+                    <hr/>
+                    <!-- Chatter -->
+                    <div id="service_chat" data-anchor="true">
+                        <h3>Communication history</h3>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="service"/>
+                        </t>
+                    </div>
                 </div>
             </div>
 
-            <!-- Chatter / Comments -->
-            <div class="mt-4">
-                <t t-call="portal.message_thread">
-                    <t t-set="object" t-value="service"/>
-                </t>
-            </div>
-
-            <div class="mt-3">
-                <a href="/my/services" class="btn btn-secondary">
-                    <i class="fa fa-arrow-left me-1"/>Back to Services
-                </a>
-            </div>
-        </t>
+            <!-- Record Pager (prev/next) -->
+            <t t-call="portal.record_pager"/>
+        </xpath>
     </template>
 
 </odoo>
