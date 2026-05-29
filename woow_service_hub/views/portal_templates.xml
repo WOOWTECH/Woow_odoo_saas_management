@@ -9,13 +9,13 @@
               inherit_id="portal.portal_my_home"
               customize_show="True"
               priority="40">
-        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+        <xpath expr="//div[@id='portal_common_category']" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="icon" t-value="'/woow_service_hub/static/src/img/service-hub.svg'"/>
                 <t t-set="title">Services</t>
                 <t t-set="url" t-value="'/my/services'"/>
                 <t t-set="text">Browse services shared with you</t>
-                <t t-set="placeholder_count" t-value="'service_count'"/>
+                <t t-set="config_card" t-value="True"/>
             </t>
         </xpath>
     </template>
