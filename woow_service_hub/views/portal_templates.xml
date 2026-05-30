@@ -259,8 +259,6 @@
                 </div>
             </div>
 
-            <!-- Record Pager (prev/next) -->
-            <t t-call="portal.record_pager"/>
         </xpath>
     </template>
 
