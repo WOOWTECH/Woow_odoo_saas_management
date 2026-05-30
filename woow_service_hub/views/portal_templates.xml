@@ -9,7 +9,7 @@
               inherit_id="portal.portal_my_home"
               customize_show="True"
               priority="40">
-        <xpath expr="//div[@id='portal_common_category']" position="inside">
+        <xpath expr="//div[@id='portal_common_category']/t[@t-call='portal.portal_docs_entry'][last()]" position="before">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="icon" t-value="'/woow_service_hub/static/src/img/service-hub.svg'"/>
                 <t t-set="title">Services</t>
