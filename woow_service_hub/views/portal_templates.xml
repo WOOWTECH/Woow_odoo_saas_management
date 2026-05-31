@@ -102,10 +102,10 @@
                                 <!-- Open button (above stretched-link via z-index) -->
                                 <t t-if="s.full_url">
                                     <a t-att-href="s.full_url" target="_blank"
-                                       class="btn btn-outline-secondary btn-sm flex-shrink-0 position-relative"
+                                       class="btn btn-outline-secondary btn-sm flex-shrink-0 position-relative d-inline-flex align-items-center justify-content-center gap-1"
                                        style="z-index:2;">
                                         <i class="fa fa-external-link"/>
-                                        <span class="d-none d-md-inline ms-1">Open</span>
+                                        <span>Open</span>
                                     </a>
                                 </t>
                             </div>
@@ -195,8 +195,9 @@
                             <div class="d-flex flex-column gap-2">
                                 <t t-if="service.full_url">
                                     <a t-att-href="service.full_url" target="_blank"
-                                       class="btn btn-primary btn-sm">
-                                        <i class="fa fa-external-link me-1"/>Open Service
+                                       class="btn btn-primary btn-sm d-inline-flex align-items-center justify-content-center gap-1">
+                                        <i class="fa fa-external-link"/>
+                                        <span>Open Service</span>
                                     </a>
                                 </t>
                             </div>
@@ -223,8 +224,9 @@
                                 <div class="col-auto">
                                     <t t-if="service.full_url">
                                         <a t-att-href="service.full_url" target="_blank"
-                                           class="btn btn-primary btn-sm d-none d-lg-inline-block">
-                                            <i class="fa fa-external-link me-1"/>Open Service
+                                           class="btn btn-primary btn-sm d-none d-lg-inline-flex align-items-center justify-content-center gap-1">
+                                            <i class="fa fa-external-link"/>
+                                            <span>Open Service</span>
                                         </a>
                                     </t>
                                 </div>
