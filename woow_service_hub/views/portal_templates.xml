@@ -102,7 +102,7 @@
                                 <!-- Open button (above stretched-link via z-index) -->
                                 <t t-if="s.full_url">
                                     <a t-att-href="s.full_url" target="_blank" role="button"
-                                       class="btn btn-light btn-sm flex-shrink-0 position-relative d-inline-flex align-items-center justify-content-center gap-1"
+                                       class="btn btn-secondary btn-sm flex-shrink-0 position-relative d-inline-flex align-items-center justify-content-center gap-1"
                                        style="z-index:2;">
                                         <i class="fa fa-external-link me-1"/>
                                         <span>Open</span>
@@ -195,7 +195,7 @@
                             <div class="d-flex flex-column gap-2">
                                 <t t-if="service.full_url">
                                     <a t-att-href="service.full_url" target="_blank" role="button"
-                                       class="btn btn-light d-inline-flex align-items-center justify-content-center gap-1">
+                                       class="btn btn-secondary d-inline-flex align-items-center justify-content-center gap-1">
                                         <i class="fa fa-external-link me-1"/>
                                         <span>Open Service</span>
                                     </a>
@@ -224,7 +224,7 @@
                                 <div class="col-auto">
                                     <t t-if="service.full_url">
                                         <a t-att-href="service.full_url" target="_blank" role="button"
-                                           class="btn btn-light btn-sm d-none d-lg-inline-flex align-items-center justify-content-center gap-1">
+                                           class="btn btn-secondary btn-sm d-none d-lg-inline-flex align-items-center justify-content-center gap-1">
                                             <i class="fa fa-external-link me-1"/>
                                             <span>Open Service</span>
                                         </a>
