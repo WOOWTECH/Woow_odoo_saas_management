@@ -1,50 +1,50 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
 <!-- Ground shadow -->
-<ellipse cx="32" cy="59" rx="18" ry="4" fill="#C1DBF6"/>
+<ellipse cx="32" cy="59" rx="18" ry="4" fill="rgba(188,148,78,0.15)"/>
 <!-- Monitor stand -->
-<path d="M28 52L36 52L35 56L29 56Z" fill="#C1DBF6"/>
-<path d="M26 56L38 56" stroke="#374874" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M28 52L36 52L35 56L29 56Z" fill="rgba(188,148,78,0.2)"/>
+<path d="M26 56L38 56" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" stroke-linecap="round"/>
 <!-- Monitor body -->
-<rect x="8" y="14" width="48" height="36" rx="3" fill="white"/>
-<rect x="8" y="14" width="48" height="36" rx="3" stroke="#374874" stroke-width="1.2"/>
+<rect x="8" y="14" width="48" height="36" rx="3" fill="rgba(255,255,255,0.06)"/>
+<rect x="8" y="14" width="48" height="36" rx="3" stroke="rgba(255,255,255,0.25)" stroke-width="1.2"/>
 <!-- Screen area -->
-<rect x="11" y="17" width="42" height="29" rx="1.5" fill="#C1DBF6" opacity="0.25"/>
-<!-- App grid: 3x2 tiles representing SaaS services -->
+<rect x="11" y="17" width="42" height="29" rx="1.5" fill="rgba(188,148,78,0.08)"/>
+<!-- App grid: 3x2 tiles -->
 <!-- Row 1 -->
-<rect x="15" y="21" width="10" height="9" rx="2" fill="white"/>
-<rect x="15" y="21" width="10" height="9" rx="2" stroke="#374874" stroke-width="0.9"/>
-<rect x="27" y="21" width="10" height="9" rx="2" fill="white"/>
-<rect x="27" y="21" width="10" height="9" rx="2" stroke="#374874" stroke-width="0.9"/>
-<rect x="39" y="21" width="10" height="9" rx="2" fill="white"/>
-<rect x="39" y="21" width="10" height="9" rx="2" stroke="#374874" stroke-width="0.9"/>
+<rect x="15" y="21" width="10" height="9" rx="2" fill="rgba(255,255,255,0.04)"/>
+<rect x="15" y="21" width="10" height="9" rx="2" stroke="rgba(255,255,255,0.2)" stroke-width="0.9"/>
+<rect x="27" y="21" width="10" height="9" rx="2" fill="rgba(255,255,255,0.04)"/>
+<rect x="27" y="21" width="10" height="9" rx="2" stroke="rgba(255,255,255,0.2)" stroke-width="0.9"/>
+<rect x="39" y="21" width="10" height="9" rx="2" fill="rgba(255,255,255,0.04)"/>
+<rect x="39" y="21" width="10" height="9" rx="2" stroke="rgba(255,255,255,0.2)" stroke-width="0.9"/>
 <!-- Row 2 -->
-<rect x="15" y="33" width="10" height="9" rx="2" fill="white"/>
-<rect x="15" y="33" width="10" height="9" rx="2" stroke="#374874" stroke-width="0.9"/>
-<rect x="27" y="33" width="10" height="9" rx="2" fill="white"/>
-<rect x="27" y="33" width="10" height="9" rx="2" stroke="#374874" stroke-width="0.9"/>
-<rect x="39" y="33" width="10" height="9" rx="2" fill="white"/>
-<rect x="39" y="33" width="10" height="9" rx="2" stroke="#374874" stroke-width="0.9"/>
-<!-- Tile icons: small symbols inside tiles -->
-<!-- Tile 1: chat bubble (communication) -->
-<path d="M18 24L23 24L23 27.5L21.5 27.5L20.5 29L20.5 27.5L18 27.5Z" fill="#C1DBF6" stroke="#374874" stroke-width="0.6"/>
-<!-- Tile 2: code brackets (dev tools) -->
-<path d="M30 24L32 27L30 28" stroke="#374874" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-<path d="M36 24L34 27L36 28" stroke="#374874" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-<!-- Tile 3: cloud (infrastructure) -->
-<path d="M42 27C42 25.5 43 24 44.5 24C45.5 24 46 24.5 46.5 25C47 24.5 47.5 24.5 48 25C48.5 25.5 48 26.5 47 27L42 27Z" fill="#FBDBD0" stroke="#374874" stroke-width="0.6"/>
-<!-- Tile 4: bar chart (analytics) -->
-<rect x="17.5" y="38" width="2" height="3" fill="#FBDBD0"/>
-<rect x="20" y="36" width="2" height="5" fill="#C1DBF6"/>
-<rect x="22.5" y="37" width="2" height="4" fill="#FBDBD0"/>
-<!-- Tile 5: lock (security) -->
-<rect x="30" y="38" width="6" height="4" rx="1" fill="#C1DBF6"/>
-<path d="M31.5 38L31.5 36.5C31.5 35.5 32.5 35 33 35C33.5 35 34.5 35.5 34.5 36.5L34.5 38" stroke="#374874" stroke-width="0.8" fill="none"/>
-<!-- Tile 6: rocket (launch) -->
-<path d="M44 41L44 36L46 35L46 41" stroke="#374874" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-<path d="M43 41L47 41" stroke="#FBDBD0" stroke-width="1.2" stroke-linecap="round"/>
+<rect x="15" y="33" width="10" height="9" rx="2" fill="rgba(255,255,255,0.04)"/>
+<rect x="15" y="33" width="10" height="9" rx="2" stroke="rgba(255,255,255,0.2)" stroke-width="0.9"/>
+<rect x="27" y="33" width="10" height="9" rx="2" fill="rgba(255,255,255,0.04)"/>
+<rect x="27" y="33" width="10" height="9" rx="2" stroke="rgba(255,255,255,0.2)" stroke-width="0.9"/>
+<rect x="39" y="33" width="10" height="9" rx="2" fill="rgba(255,255,255,0.04)"/>
+<rect x="39" y="33" width="10" height="9" rx="2" stroke="rgba(255,255,255,0.2)" stroke-width="0.9"/>
+<!-- Tile icons -->
+<!-- Tile 1: chat bubble -->
+<path d="M18 24L23 24L23 27.5L21.5 27.5L20.5 29L20.5 27.5L18 27.5Z" fill="rgba(188,148,78,0.3)" stroke="rgba(255,255,255,0.4)" stroke-width="0.6"/>
+<!-- Tile 2: code brackets -->
+<path d="M30 24L32 27L30 28" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M36 24L34 27L36 28" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<!-- Tile 3: cloud -->
+<path d="M42 27C42 25.5 43 24 44.5 24C45.5 24 46 24.5 46.5 25C47 24.5 47.5 24.5 48 25C48.5 25.5 48 26.5 47 27L42 27Z" fill="rgba(188,148,78,0.3)" stroke="rgba(255,255,255,0.4)" stroke-width="0.6"/>
+<!-- Tile 4: bar chart -->
+<rect x="17.5" y="38" width="2" height="3" fill="rgba(188,148,78,0.5)"/>
+<rect x="20" y="36" width="2" height="5" fill="rgba(255,255,255,0.3)"/>
+<rect x="22.5" y="37" width="2" height="4" fill="rgba(188,148,78,0.4)"/>
+<!-- Tile 5: lock -->
+<rect x="30" y="38" width="6" height="4" rx="1" fill="rgba(188,148,78,0.3)"/>
+<path d="M31.5 38L31.5 36.5C31.5 35.5 32.5 35 33 35C33.5 35 34.5 35.5 34.5 36.5L34.5 38" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" fill="none"/>
+<!-- Tile 6: rocket -->
+<path d="M44 41L44 36L46 35L46 41" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path d="M43 41L47 41" stroke="rgba(188,148,78,0.6)" stroke-width="1.2" stroke-linecap="round"/>
 <!-- Monitor stand outline -->
-<path d="M28 52L36 52L35 56L29 56Z" stroke="#374874" stroke-width="0.9" stroke-linejoin="round"/>
-<!-- External link arrow (top right corner) -->
-<path d="M50 18L54 14" stroke="#374874" stroke-width="1.2" stroke-linecap="round"/>
-<path d="M51 14L54 14L54 17" stroke="#374874" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M28 52L36 52L35 56L29 56Z" stroke="rgba(255,255,255,0.2)" stroke-width="0.9" stroke-linejoin="round"/>
+<!-- External link arrow -->
+<path d="M50 18L54 14" stroke="rgba(188,148,78,0.6)" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M51 14L54 14L54 17" stroke="rgba(188,148,78,0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
