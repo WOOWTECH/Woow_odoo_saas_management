@@ -1,0 +1,60 @@
+- generic [ref=e2]:
+  - link "跳至內容" [ref=e3] [cursor=pointer]:
+    - /url: "#wrap"
+  - banner [ref=e4]:
+    - navigation [ref=e5]:
+      - generic [ref=e6]:
+        - link "Logo of My Company" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img "Logo of My Company" [ref=e8]
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - button "Portal User" [ref=e11] [cursor=pointer]
+            - text:  
+  - main [ref=e12]:
+    - list [ref=e15]:
+      - listitem [ref=e16]:
+        - link "首頁" [ref=e17] [cursor=pointer]:
+          - /url: /my/home
+          - generic [ref=e18]: 
+      - listitem [ref=e19]:
+        - text: /
+        - link "服務" [ref=e20] [cursor=pointer]:
+          - /url: /my/services
+      - listitem [ref=e21]: / Slack
+    - generic [ref=e23]:
+      - generic [ref=e26]:
+        - generic [ref=e29]: 
+        - heading "Slack" [level=3] [ref=e31]
+        - link " 開啟服務" [ref=e33] [cursor=pointer]:
+          - /url: https://slack.com
+          - generic [ref=e34]: 
+          - text: 開啟服務
+      - generic [ref=e38]:
+        - generic [ref=e41]:
+          - img "Avatar of user" [ref=e43]
+          - generic [ref=e44]:
+            - generic [ref=e45]:
+              - textbox "寫下訊息⋯" [ref=e47]
+              - button "Emojis" [ref=e50] [cursor=pointer]:
+                - generic [ref=e51]: 
+            - generic [ref=e52]:
+              - button "發送" [disabled]
+              - button "Attach files" [ref=e56] [cursor=pointer]:
+                - generic [ref=e57]: 
+        - generic [ref=e60]:
+          - generic [ref=e61]: 😶
+          - generic [ref=e62]: The conversation is empty.
+      - link " 返回服務列表" [ref=e64] [cursor=pointer]:
+        - /url: /my/services
+        - generic [ref=e65]: 
+        - text: 返回服務列表
+  - contentinfo [ref=e66]:
+    - generic [ref=e69]:
+      - generic [ref=e71]: 版權所有 © My Company
+      - generic [ref=e73]:
+        - text: 由
+        - link "Odoo" [ref=e74] [cursor=pointer]:
+          - /url: http://www.odoo.com?utm_source=db&utm_medium=portal
+          - img "Odoo" [ref=e75]
+        - text: 驅動

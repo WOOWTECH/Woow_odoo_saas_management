@@ -1,0 +1,123 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - button "" [ref=e5] [cursor=pointer]:
+        - generic [ref=e6]: 
+      - menuitem "服務中心" [ref=e123] [cursor=pointer]
+      - menu [ref=e22]:
+        - menuitem "所有服務" [ref=e124] [cursor=pointer]
+        - menuitem "分類" [ref=e125] [cursor=pointer]
+      - menu [ref=e7]:
+        - button "訊息 3" [ref=e25] [cursor=pointer]:
+          - img "訊息" [ref=e10]: 
+          - generic [ref=e11]: "3"
+        - button "活動" [ref=e12] [cursor=pointer]:
+          - img "活動" [ref=e13]: 
+        - button "My Company" [disabled] [ref=e15]:
+          - text: 
+          - generic [ref=e16]: My Company
+        - button "使用者" [ref=e18] [cursor=pointer]:
+          - img "使用者" [ref=e19]
+          - text: 
+  - generic [ref=e599]:
+    - generic [ref=e601]:
+      - generic [ref=e602]:
+        - button "新增" [ref=e605] [cursor=pointer]
+        - generic [ref=e606]:
+          - list [ref=e607]:
+            - listitem [ref=e608]:
+              - link "服務" [ref=e609] [cursor=pointer]:
+                - /url: /odoo/action-206?view_type=list
+          - generic [ref=e610]:
+            - generic [ref=e612]: Slack
+            - button "" [ref=e616] [cursor=pointer]:
+              - generic [ref=e617]: 
+      - search [ref=e620]:
+        - navigation "頁面工具" [ref=e621]:
+          - generic [ref=e622]:
+            - generic [ref=e623]: "12"
+            - text: / 12
+          - generic [ref=e624]:
+            - button "上一頁" [ref=e625] [cursor=pointer]:
+              - generic [ref=e626]: 
+            - button "下一頁" [ref=e627] [cursor=pointer]:
+              - generic [ref=e628]: 
+    - generic [ref=e630]:
+      - generic [ref=e631]:
+        - button " 開啟服務" [ref=e634] [cursor=pointer]:
+          - generic [ref=e635]: 
+          - text: 開啟服務
+        - generic [ref=e636]:
+          - generic [ref=e638]:
+            - button "編輯" [ref=e641] [cursor=pointer]:
+              - generic [ref=e642]: 
+            - img "二進位文件" [ref=e643]
+          - generic [ref=e644]:
+            - generic [ref=e645]: 服務名稱
+            - heading "Slack" [level=1] [ref=e646]:
+              - textbox "服務名稱" [ref=e648]: Slack
+          - generic [ref=e649]:
+            - generic [ref=e650]:
+              - generic [ref=e651]:
+                - generic [ref=e653]: 服務網址
+                - generic [ref=e656]:
+                  - textbox "服務網址" [ref=e657]:
+                    - /placeholder: 例如 slack.com
+                    - text: slack.com
+                  - text: 
+              - generic [ref=e658]:
+                - generic [ref=e660]: 完整網址
+                - link "https://slack.com" [ref=e663] [cursor=pointer]:
+                  - /url: https://slack.com
+              - generic [ref=e664]:
+                - generic [ref=e666]:
+                  - text: 圖示
+                  - superscript [ref=e667]: "?"
+                - textbox "圖示?" [ref=e670]:
+                  - /placeholder: 例如 fa-rocket
+                  - text: fa-slack
+              - generic [ref=e671]:
+                - generic [ref=e673]: 卡片顏色
+                - menuitem "紅色" [ref=e677] [cursor=pointer]
+            - generic [ref=e678]:
+              - generic [ref=e679]:
+                - generic [ref=e681]: 分類
+                - generic [ref=e684]:
+                  - generic "通訊" [ref=e685]:
+                    - generic [ref=e686]: 通訊
+                    - link "刪除" [ref=e687] [cursor=pointer]:
+                      - /url: "#"
+                      - generic [ref=e688]: 
+                  - combobox "分類" [ref=e692]
+              - generic [ref=e693]:
+                - generic [ref=e695]: 內部負責人
+                - combobox "內部負責人" [ref=e701]
+          - generic [ref=e702]:
+            - list [ref=e704]:
+              - listitem [ref=e705] [cursor=pointer]:
+                - tab "一般" [ref=e706]
+              - listitem [ref=e707] [cursor=pointer]:
+                - tab "共享" [ref=e708]
+              - listitem [ref=e709] [cursor=pointer]:
+                - tab "備註" [ref=e710]
+            - generic [ref=e715]:
+              - generic:
+                - generic:        
+              - generic [ref=e718]: 此服務的公開描述…
+      - generic [ref=e720]:
+        - generic [ref=e722]:
+          - button "發送訊息" [ref=e723] [cursor=pointer]
+          - button "備註" [ref=e724] [cursor=pointer]
+          - button "活動" [ref=e725] [cursor=pointer]
+          - button "搜尋訊息" [ref=e727] [cursor=pointer]:
+            - img [ref=e728]: 
+          - button "附加檔案" [ref=e730] [cursor=pointer]:
+            - generic [ref=e731]: 
+          - button "0" [ref=e733] [cursor=pointer]:
+            - img [ref=e734]: 
+            - superscript: "0"
+          - button "訂閱" [ref=e735] [cursor=pointer]:
+            - generic [ref=e737]: 訂閱
+        - generic [ref=e740]:
+          - generic [ref=e741]: 😶
+          - generic [ref=e742]: 對話空白。

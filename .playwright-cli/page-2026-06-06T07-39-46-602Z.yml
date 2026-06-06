@@ -1,0 +1,40 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - navigation [ref=e4]:
+      - generic [ref=e5]:
+        - link "Logo of My Company" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Logo of My Company" [ref=e7]
+        - list [ref=e8]:
+          - listitem [ref=e9]:
+            - button "Administrator" [ref=e10] [cursor=pointer]
+            - text:   
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - heading "我的帳戶" [level=3] [ref=e15]
+      - generic [ref=e16]:
+        - link "連線及保安 配置您的連線參數" [ref=e22] [cursor=pointer]:
+          - /url: /my/security
+          - img [ref=e24]
+          - generic [ref=e25]:
+            - generic [ref=e26]: 連線及保安
+            - generic [ref=e27]: 配置您的連線參數
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - img "聯絡人" [ref=e32]
+            - heading "Administrator" [level=5] [ref=e34]
+          - generic [ref=e39]:
+            - img "電郵地址" [ref=e40]: 
+            - generic [ref=e41]: admin@example.com
+          - button " 編輯資料" [ref=e42] [cursor=pointer]:
+            - generic [ref=e43]: 
+            - text: 編輯資料
+  - contentinfo [ref=e44]:
+    - generic [ref=e47]:
+      - generic [ref=e49]: 版權所有 © My Company
+      - generic [ref=e51]:
+        - text: 由
+        - link "Odoo" [ref=e52] [cursor=pointer]:
+          - /url: http://www.odoo.com?utm_source=db&utm_medium=portal
+          - img "Odoo" [ref=e53]
+        - text: 驅動

@@ -1,0 +1,112 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - button "" [ref=e5] [cursor=pointer]:
+        - generic [ref=e6]: 
+      - menuitem "服務中心" [ref=e123] [cursor=pointer]
+      - menu [ref=e22]:
+        - menuitem "所有服務" [ref=e124] [cursor=pointer]
+        - menuitem "分類" [ref=e125] [cursor=pointer]
+      - menu [ref=e7]:
+        - button "訊息 3" [ref=e25] [cursor=pointer]:
+          - img "訊息" [ref=e10]: 
+          - generic [ref=e11]: "3"
+        - button "活動" [ref=e12] [cursor=pointer]:
+          - img "活動" [ref=e13]: 
+        - button "My Company" [disabled] [ref=e15]:
+          - text: 
+          - generic [ref=e16]: My Company
+        - button "使用者" [ref=e18] [cursor=pointer]:
+          - img "使用者" [ref=e19]
+          - text: 
+  - generic [ref=e967]:
+    - generic [ref=e969]:
+      - generic [ref=e970]:
+        - button "新增" [ref=e973] [cursor=pointer]
+        - generic [ref=e974]:
+          - generic [ref=e976]: 服務分類
+          - button "" [ref=e980] [cursor=pointer]:
+            - generic [ref=e981]: 
+      - search [ref=e983]:
+        - search [ref=e984]:
+          - button "搜尋⋯" [ref=e985] [cursor=pointer]:
+            - img [ref=e986]: 
+          - searchbox "搜尋⋯" [active] [ref=e988]
+        - button "" [ref=e989] [cursor=pointer]
+      - search [ref=e991]:
+        - navigation "頁面工具" [ref=e992]:
+          - generic [ref=e993]:
+            - generic [ref=e994]: 1-8
+            - text: / 8
+          - generic [ref=e995]:
+            - button "上一頁" [disabled]:
+              - generic: 
+            - button "下一頁" [disabled]:
+              - generic: 
+    - table [ref=e998]:
+      - rowgroup [ref=e999]:
+        - row "名稱  顏色索引 " [ref=e1000]:
+          - columnheader [ref=e1001] [cursor=pointer]:
+            - checkbox [ref=e1003]
+          - columnheader "名稱 " [ref=e1004] [cursor=pointer]:
+            - generic [ref=e1005]:
+              - generic [ref=e1006]: 名稱
+              - generic [ref=e1007]: 
+          - columnheader "顏色索引 " [ref=e1009] [cursor=pointer]:
+            - generic [ref=e1010]:
+              - generic [ref=e1011]: 顏色索引
+              - generic [ref=e1012]: 
+      - rowgroup [ref=e1014]:
+        - row "分析 藍色" [ref=e1015]:
+          - cell [ref=e1016]:
+            - checkbox [ref=e1018] [cursor=pointer]
+          - cell "分析" [ref=e1019] [cursor=pointer]
+          - cell "藍色" [ref=e1020] [cursor=pointer]:
+            - menuitem "藍色" [ref=e1023]
+        - row "安全 杏仁" [ref=e1024]:
+          - cell [ref=e1025]:
+            - checkbox [ref=e1027] [cursor=pointer]
+          - cell "安全" [ref=e1028] [cursor=pointer]
+          - cell "杏仁" [ref=e1029] [cursor=pointer]:
+            - menuitem "杏仁" [ref=e1032]
+        - row "專案管理 青色" [ref=e1033]:
+          - cell [ref=e1034]:
+            - checkbox [ref=e1036] [cursor=pointer]
+          - cell "專案管理" [ref=e1037] [cursor=pointer]
+          - cell "青色" [ref=e1038] [cursor=pointer]:
+            - menuitem "青色" [ref=e1041]
+        - row "文件 藍綠色" [ref=e1042]:
+          - cell [ref=e1043]:
+            - checkbox [ref=e1045] [cursor=pointer]
+          - cell "文件" [ref=e1046] [cursor=pointer]
+          - cell "藍綠色" [ref=e1047] [cursor=pointer]:
+            - menuitem "藍綠色" [ref=e1050]
+        - row "設計 黃色" [ref=e1051]:
+          - cell [ref=e1052]:
+            - checkbox [ref=e1054] [cursor=pointer]
+          - cell "設計" [ref=e1055] [cursor=pointer]
+          - cell "黃色" [ref=e1056] [cursor=pointer]:
+            - menuitem "黃色" [ref=e1059]
+        - row "通訊 紅色" [ref=e1060]:
+          - cell [ref=e1061]:
+            - checkbox [ref=e1063] [cursor=pointer]
+          - cell "通訊" [ref=e1064] [cursor=pointer]
+          - cell "紅色" [ref=e1065] [cursor=pointer]:
+            - menuitem "紅色" [ref=e1068]
+        - row "開發 橙色" [ref=e1069]:
+          - cell [ref=e1070]:
+            - checkbox [ref=e1072] [cursor=pointer]
+          - cell "開發" [ref=e1073] [cursor=pointer]
+          - cell "橙色" [ref=e1074] [cursor=pointer]:
+            - menuitem "橙色" [ref=e1077]
+        - row "雲端與基礎架構 紫色" [ref=e1078]:
+          - cell [ref=e1079]:
+            - checkbox [ref=e1081] [cursor=pointer]
+          - cell "雲端與基礎架構" [ref=e1082] [cursor=pointer]
+          - cell "紫色" [ref=e1083] [cursor=pointer]:
+            - menuitem "紫色" [ref=e1086]
+      - rowgroup [ref=e1087]:
+        - row [ref=e1088]:
+          - cell [ref=e1089]
+          - cell [ref=e1090]
+          - cell [ref=e1091]

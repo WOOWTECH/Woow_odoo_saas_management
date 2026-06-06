@@ -1,0 +1,11 @@
+- generic [ref=e2]:
+  - link "跳至內容" [ref=e3] [cursor=pointer]:
+    - /url: "#wrap"
+  - main [ref=e4]:
+    - generic [ref=e7]:
+      - img "Logo" [ref=e9]
+      - generic [ref=e10]:
+        - link "管理資料庫" [ref=e11] [cursor=pointer]:
+          - /url: /web/database/manager
+        - link "由 Odoo 驅動" [ref=e12] [cursor=pointer]:
+          - /url: https://www.odoo.com?utm_source=db&utm_medium=auth
