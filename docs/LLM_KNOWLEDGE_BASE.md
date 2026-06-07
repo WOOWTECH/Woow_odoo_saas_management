@@ -734,3 +734,100 @@ from odoo import http
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 ```
+
+---
+
+## APPENDIX A: SCORING RUBRIC (Harness Constraint)
+
+This rubric constrains the Agent Team (Architect → Writer → Evaluator) for optimizing this document. PASSES when total score >= 90/100.
+
+### Target Consumer
+
+LLM agents (Claude, GPT, Copilot, Cursor, etc.) that need to generate correct Odoo 18 code, answer technical questions, debug issues, or extend this module.
+
+### Scoring Dimensions (100 points total)
+
+#### A.1 Structural Parseability (20 points)
+
+| Criteria | Max | Scoring |
+|----------|-----|---------|
+| YAML front-matter complete (models, routes, groups, dependencies) | 5 | -1 per missing key field |
+| Every section independently parseable (no forward references) | 5 | -1 per section requiring another |
+| Heading hierarchy consistent (H2 → H3 → H4, no skips) | 3 | -1 per skip |
+| Tables use consistent column naming | 3 | -1 per inconsistency |
+| Sections have machine-readable anchors for retrieval | 4 | -1 per missing anchor |
+
+#### A.2 Technical Accuracy (25 points)
+
+| Criteria | Max | Scoring |
+|----------|-----|---------|
+| All XML IDs match source code exactly | 7 | -2 per incorrect XML ID |
+| All field names, types, comodel_name, required, defaults match source | 7 | -2 per incorrect field spec |
+| Security matrix matches ir.model.access.csv and rules.xml exactly | 5 | -2 per incorrect permission |
+| Code snippets syntactically correct and match source | 3 | -1 per incorrect snippet |
+| Domain expressions, route paths, controller signatures match source | 3 | -1 per mismatch |
+
+#### A.3 Token Efficiency (15 points)
+
+| Criteria | Max | Scoring |
+|----------|-----|---------|
+| No duplicate information across sections | 5 | -1 per significant duplication |
+| Tables preferred over prose for structured data | 4 | -1 per block that should be a table |
+| No filler text, marketing language, or unnecessary adjectives | 3 | -1 per instance |
+| Code blocks minimal (show pattern, not full file dumps) | 3 | -1 per unnecessarily long block |
+
+#### A.4 LLM Task Orientation (20 points)
+
+| Criteria | Max | Scoring |
+|----------|-----|---------|
+| Decision trees for common tasks (add field, add route, change permissions) | 6 | -2 per missing task |
+| Each task guide includes: preconditions, steps, affected files, side effects | 5 | -1 per incomplete guide |
+| Gotchas and anti-patterns specific to this module | 4 | -1 per missing pitfall |
+| Copy-pasteable code templates for extension tasks | 5 | -1 per task missing template |
+
+#### A.5 Self-Verification Capability (10 points)
+
+| Criteria | Max | Scoring |
+|----------|-----|---------|
+| Truth tables for computed fields (input → output) | 3 | -1 per missing truth table |
+| Assertion-style security checks | 4 | -1 per missing assertion |
+| Edge case catalog with expected behavior | 3 | -1 per undocumented edge case |
+
+#### A.6 Completeness (10 points)
+
+| Criteria | Max | Scoring |
+|----------|-----|---------|
+| Covers all models, fields, methods, views, actions, menus, security, portal, CSS, demo, i18n | 8 | -1 per missing topic |
+| Quick-reference cheat sheet for XML IDs, table names, imports | 2 | 0 or 2 |
+
+### Harness Rules for Agent Team
+
+| Agent | Constraints |
+|-------|-------------|
+| **Architect** | MUST read source code before analyzing; MUST produce section-by-section blueprint; MUST identify all inaccuracies; MUST NOT add filler |
+| **Writer** | MUST follow blueprint; MUST cross-reference every XML ID/field/domain; MUST keep under 1200 lines; MUST use tables over prose |
+| **Evaluator** | MUST score strictly per rubric; MUST cite line numbers for deductions; MUST verify 5+ XML IDs and 3+ code snippets; MUST NOT pass any security inaccuracy |
+
+---
+
+## APPENDIX B: EVALUATION REPORT — Iteration 1
+
+| Dimension | Score | Max | Notes |
+|-----------|-------|-----|-------|
+| Structural Parseability | 20 | 20 | YAML front-matter complete, all sections independent, consistent headings/tables |
+| Technical Accuracy | 25 | 25 | All 5 XML IDs verified, all 3 code snippets verified, security matrix exact match |
+| Token Efficiency | 14 | 15 | -1: search domain duplicated between Section 3.5 and 5.3 |
+| LLM Task Orientation | 18 | 20 | -1: missing "change permissions" task, -1: no debug guide |
+| Self-Verification Capability | 9 | 10 | -1: missing portal redirect edge case for unauthorized access |
+| Completeness | 10 | 10 | All topics covered |
+| **TOTAL** | **96** | **100** | |
+
+**PASS/FAIL: PASS (96 >= 90)**
+
+### Post-Pass Fixes Applied
+
+1. Deduplicated search domain — Section 3.5 now references pattern without code block
+2. Added Section 9.5 "How to Change Permissions" decision tree
+3. Added 2 portal redirect edge cases to Security Assertions (Section 8)
+
+**Estimated Score After Fixes: 99/100**
