@@ -560,3 +560,43 @@ msgstr "例如 fa-rocket"
 #: model_terms:ir.ui.view,arch_db:woow_service_hub.woow_service_view_form
 msgid "e.g. slack.com"
 msgstr "例如 slack.com"
+
+#. module: woow_service_hub
+#: model:ir.model.fields,field_description:woow_service_hub.field_woow_service__well_category
+msgid "WELL Category"
+msgstr "WELL 分類"
+
+#. module: woow_service_hub
+#: model:ir.model.fields,help:woow_service_hub.field_woow_service__well_category
+msgid "WELL Building Standard service category classification"
+msgstr "WELL 建築標準服務分類"
+
+#. module: woow_service_hub
+#: model:ir.model.fields.selection,name:woow_service_hub.field_woow_service__well_category__health
+msgid "Health & Wellness Program"
+msgstr "健康與養生計畫"
+
+#. module: woow_service_hub
+#: model:ir.model.fields.selection,name:woow_service_hub.field_woow_service__well_category__eap
+msgid "EAP Mental Health Support"
+msgstr "EAP 心理健康支持"
+
+#. module: woow_service_hub
+#: model:ir.model.fields.selection,name:woow_service_hub.field_woow_service__well_category__fitness
+msgid "Fitness & Movement"
+msgstr "體適能與運動"
+
+#. module: woow_service_hub
+#: model:ir.model.fields.selection,name:woow_service_hub.field_woow_service__well_category__nutrition
+msgid "Nutrition & Nourishment"
+msgstr "營養與膳食"
+
+#. module: woow_service_hub
+#: model:ir.model.fields.selection,name:woow_service_hub.field_woow_service__well_category__environment
+msgid "Environmental Monitoring"
+msgstr "環境監測"
+
+#. module: woow_service_hub
+#: model:ir.model.fields.selection,name:woow_service_hub.field_woow_service__well_category__none
+msgid "General Service"
+msgstr "一般服務"

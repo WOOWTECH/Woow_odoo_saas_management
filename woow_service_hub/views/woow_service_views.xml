@@ -97,6 +97,7 @@
                         <group>
                             <field name="category_ids" widget="many2many_tags"
                                    options="{'color_field': 'color'}"/>
+                            <field name="well_category"/>
                             <field name="internal_manager_id"/>
                         </group>
                     </group>

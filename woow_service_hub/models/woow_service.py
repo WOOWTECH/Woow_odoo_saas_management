@@ -22,6 +22,19 @@ class WoowService(models.Model):
     color = fields.Integer(string="Card Color")
 
     # ------------------------------------------------------------------
+    # WELL Building Standard category
+    # ------------------------------------------------------------------
+    well_category = fields.Selection([
+        ('health', 'Health & Wellness Program'),
+        ('eap', 'EAP Mental Health Support'),
+        ('fitness', 'Fitness & Movement'),
+        ('nutrition', 'Nutrition & Nourishment'),
+        ('environment', 'Environmental Monitoring'),
+        ('none', 'General Service'),
+    ], string='WELL Category', default='none',
+        help='WELL Building Standard service category classification')
+
+    # ------------------------------------------------------------------
     # Category tags
     # ------------------------------------------------------------------
     category_ids = fields.Many2many(
