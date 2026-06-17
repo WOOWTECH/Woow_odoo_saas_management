@@ -1,5 +1,7 @@
+import re
+
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class WoowService(models.Model):
@@ -47,6 +49,44 @@ class WoowService(models.Model):
             if raw and not raw.startswith(("http://", "https://")):
                 raw = "https://" + raw
             rec.full_url = raw
+
+    # ------------------------------------------------------------------
+    # Constraints
+    # ------------------------------------------------------------------
+    @api.constrains("url")
+    def _check_url_format(self):
+        """Validate that the url field contains a well-formed URL.
+
+        Accepts http://, https://, or bare hostnames (which get
+        https:// prepended by _compute_full_url). Blocks dangerous
+        schemes (javascript:, data:, vbscript:) and clearly
+        malformed values.
+        """
+        _url_re = re.compile(
+            r"^(https?://)?"           # optional scheme
+            r"[a-zA-Z0-9]"            # must start with alnum
+            r"[a-zA-Z0-9._~:/?#\[\]@!$&'()*+,;=%-]*$"  # rest of URL
+        )
+        _dangerous_schemes = ("javascript:", "data:", "vbscript:")
+        for rec in self:
+            if not rec.url:
+                continue
+            url_stripped = rec.url.strip()
+            url_lower = "".join(url_stripped.lower().split())
+            for scheme in _dangerous_schemes:
+                if url_lower.startswith(scheme):
+                    raise ValidationError(
+                        _("Service URL contains a dangerous scheme "
+                          "(%(scheme)s). Service: %(service)s",
+                          scheme=scheme.rstrip(":"),
+                          service=rec.name)
+                    )
+            if not _url_re.match(url_stripped):
+                raise ValidationError(
+                    _("'%(url)s' is not a valid URL. Service: %(service)s",
+                      url=rec.url,
+                      service=rec.name)
+                )
 
     # ------------------------------------------------------------------
     # Archive support (Odoo standard)
