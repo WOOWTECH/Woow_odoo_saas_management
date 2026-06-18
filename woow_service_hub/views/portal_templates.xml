@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================ -->
+    <!--         Portal sidebar: add "Services" entry                 -->
+    <!-- ============================================================ -->
+    <template id="portal_my_home_service"
+              name="Show Services"
+              inherit_id="portal.portal_my_home"
+              customize_show="True"
+              priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/woow_service_hub/static/src/img/service-hub.svg'"/>
+                <t t-set="title">Services</t>
+                <t t-set="url" t-value="'/my/services'"/>
+                <t t-set="text">Browse services shared with you</t>
+                <t t-set="placeholder_count" t-value="'service_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--         Breadcrumbs for /my/services pages                   -->
+    <!-- ============================================================ -->
+    <template id="portal_my_services_breadcrumbs"
+              name="Service Breadcrumbs"
+              inherit_id="portal.portal_breadcrumbs"
+              priority="40">
+        <xpath expr="//ol" position="inside">
+            <li t-if="page_name == 'services'" class="breadcrumb-item active">Services</li>
+            <li t-if="page_name == 'service_detail'" class="breadcrumb-item">
+                <a href="/my/services">Services</a>
+            </li>
+            <li t-if="page_name == 'service_detail'" class="breadcrumb-item active">
+                <t t-esc="service.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--         /my/services — Card grid of shared services          -->
+    <!-- ============================================================ -->
+    <template id="portal_my_services" name="My Services">
+        <t t-call="portal.portal_layout">
+
+            <t t-if="services">
+                <div class="woow_service_card_grid">
+                    <t t-foreach="services" t-as="s">
+                        <div class="woow_service_card">
+                            <!-- Logo / Initial -->
+                            <div class="woow_service_card_avatar">
+                                <t t-if="s.logo">
+                                    <img t-attf-src="/web/image/woow.service/#{s.id}/logo/90x90"
+                                         class="rounded" alt="Logo"
+                                         style="width:64px;height:64px;object-fit:cover;"/>
+                                </t>
+                                <t t-else="">
+                                    <span class="woow_service_card_initial rounded d-flex align-items-center justify-content-center text-white fw-bold"
+                                          style="width:64px;height:64px;font-size:1.8rem;background-color:#00897B;">
+                                        <t t-esc="(s.name or '?')[0].upper()"/>
+                                    </span>
+                                </t>
+                            </div>
+                            <!-- Info -->
+                            <div class="woow_service_card_body">
+                                <a t-attf-href="/my/services/#{s.id}" class="woow_service_card_title">
+                                    <t t-esc="s.name"/>
+                                </a>
+                            </div>
+                            <!-- Open button -->
+                            <div class="woow_service_card_action">
+                                <t t-set="s_full_url" t-value="s.get_full_url()"/>
+                                <t t-if="s_full_url">
+                                    <a t-att-href="s_full_url" target="_blank"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-external-link me-1"/>Open
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="alert alert-info" role="alert">
+                    No services have been shared with you yet.
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- ============================================================ -->
+    <!--       /my/services/<id> — Service detail page                -->
+    <!-- ============================================================ -->
+    <template id="portal_my_service_detail" name="Service Detail">
+        <t t-call="portal.portal_layout">
+            <t t-set="o_portal_fullwidth_alert" groups="woow_service_hub.woow_service_hub_group_user">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/odoo/woow-service/%s' % service.id"/>
+                </t>
+            </t>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-start mb-3">
+                        <!-- Logo / Initial -->
+                        <div class="me-3">
+                            <t t-if="service.logo">
+                                <img t-attf-src="/web/image/woow.service/#{service.id}/logo/128x128"
+                                     class="rounded" alt="Logo"
+                                     style="width:96px;height:96px;object-fit:cover;"/>
+                            </t>
+                            <t t-else="">
+                                <span class="rounded d-flex align-items-center justify-content-center text-white fw-bold"
+                                      style="width:96px;height:96px;font-size:2.5rem;background-color:#00897B;">
+                                    <t t-esc="(service.name or '?')[0].upper()"/>
+                                </span>
+                            </t>
+                        </div>
+                        <!-- Title -->
+                        <div class="flex-grow-1">
+                            <h3 class="mb-1"><t t-esc="service.name"/></h3>
+                        </div>
+                        <!-- Open button -->
+                        <div>
+                            <t t-set="svc_full_url" t-value="service.get_full_url()"/>
+                            <t t-if="svc_full_url">
+                                <a t-att-href="svc_full_url" target="_blank"
+                                   class="btn btn-primary">
+                                    <i class="fa fa-external-link me-1"/>Open Service
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                    <!-- Description -->
+                    <t t-if="service.description">
+                        <hr/>
+                        <div class="woow_service_description" t-out="service.description"/>
+                    </t>
+                </div>
+            </div>
+
+            <!-- Chatter / Comments -->
+            <div class="mt-4">
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="service"/>
+                </t>
+            </div>
+
+            <div class="mt-3">
+                <a href="/my/services" class="btn btn-secondary">
+                    <i class="fa fa-arrow-left me-1"/>Back to Services
+                </a>
+            </div>
+        </t>
+    </template>
+
+</odoo>

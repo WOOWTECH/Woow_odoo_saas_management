@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level app menu -->
+    <menuitem id="woow_service_hub_menu_root"
+              name="Service Hub"
+              web_icon="woow_service_hub,static/description/icon.png"
+              sequence="200"/>
+
+    <!-- Sub-menu: All Services (visible to User + Admin) -->
+    <menuitem id="woow_service_hub_menu_services"
+              name="All Services"
+              parent="woow_service_hub_menu_root"
+              action="woow_service_action"
+              sequence="10"
+              groups="woow_service_hub_group_user"/>
+
+    <!-- Sub-menu: Categories (admin only) -->
+    <menuitem id="woow_service_hub_menu_categories"
+              name="Categories"
+              parent="woow_service_hub_menu_root"
+              action="woow_service_category_action"
+              sequence="20"
+              groups="woow_service_hub_group_admin"/>
+</odoo>

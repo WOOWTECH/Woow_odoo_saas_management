@@ -31,7 +31,7 @@ WoowTech Service Hub (WoowTech 服務中心) centralizes all internal SaaS and w
 
 ### Key Capabilities
 
-- Kanban card wall with logo/icon/initial fallback, color tags, one-click launch
+- Kanban card wall with logo/initial fallback, color tags, one-click launch
 - Three-tier permission model: Admin (full CRUD), User (read-only), Portal (shared-only read)
 - Share specific services with external portal contacts via `share_partner_ids`
 - Portal pages at `/my/services` and `/my/services/<id>` with card grid layout
@@ -101,11 +101,9 @@ _No custom methods. Standard ORM only._
 |------|------|----------------|----------|---------|---------|-------|----------|-------|
 | `name` | `Char` | - | Yes | - | - | Yes | Yes | Service display name (服務名稱) |
 | `logo` | `Image` | - | No | - | - | Yes | No | max_width=256, max_height=256 |
-| `icon` | `Char` | - | No | - | - | Yes | No | Font Awesome class, e.g. `fa-rocket` (圖示) |
 | `color` | `Integer` | - | No | - | - | Yes | No | Kanban card color index (卡片顏色) |
 | `category_ids` | `Many2many` | `woow.service.category` | No | - | - | Yes | No | relation=`woow_service_category_rel`, column1=`service_id`, column2=`category_id` |
 | `url` | `Char` | - | No | - | - | Yes | No | Raw user-entered URL (服務網址) |
-| `full_url` | `Char` | - | No | - | `_compute_full_url` | No | No | Computed: auto-prepends `https://` (完整網址) |
 | `active` | `Boolean` | - | No | `True` | - | Yes | No | Standard Odoo archive support |
 | `internal_manager_id` | `Many2one` | `hr.employee` | No | - | - | Yes | Yes | Internal responsible person (內部負責人) |
 | `share_partner_ids` | `Many2many` | `res.partner` | No | - | - | Yes | No | relation=`woow_service_share_partner_rel`, column1=`service_id`, column2=`partner_id` (共享對象) |
@@ -123,26 +121,25 @@ _None on `woow.service`._
 
 | Method | Signature | Return Type | Description |
 |--------|-----------|-------------|-------------|
-| `_compute_full_url` | `self` | `None` | Sets `full_url`. Strips whitespace from `url`, prepends `https://` if url does not start with `http://` or `https://`. Empty url produces empty `full_url`. |
+| `get_full_url` | `self` | `str` | `ensure_one()`. Returns the normalized URL: strips whitespace from `url`, prepends `https://` if url does not start with `http://` or `https://`. Returns empty string if `url` is falsy. Public method, callable from QWeb templates. |
 | `_compute_access_url` | `self` | `None` | Overrides `portal.mixin`. Sets `access_url = f"/my/services/{rec.id}"` for each record. |
-| `action_open_service` | `self` | `dict` | `ensure_one()`. Returns `ir.actions.act_url` with `url=self.full_url, target='new'`. Raises `UserError` if `full_url` is falsy. |
+| `action_open_service` | `self` | `dict` | `ensure_one()`. Calls `self.get_full_url()` to get the normalized URL. Returns `ir.actions.act_url` with `url=full_url, target='new'`. Raises `UserError` if the result is falsy. |
 
-#### `_compute_full_url` Logic (detailed)
+#### `get_full_url` Logic (detailed)
 
 ```python
-@api.depends("url")
-def _compute_full_url(self):
-    for rec in self:
-        raw = (rec.url or "").strip()
-        if raw and not raw.startswith(("http://", "https://")):
-            raw = "https://" + raw
-        rec.full_url = raw
+def get_full_url(self):
+    self.ensure_one()
+    raw = (self.url or "").strip()
+    if raw and not raw.startswith(("http://", "https://")):
+        raw = "https://" + raw
+    return raw
 ```
 
 **Truth table:**
 
-| Input `url` | Output `full_url` |
-|-------------|-------------------|
+| Input `url` | Output of `get_full_url()` |
+|-------------|----------------------------|
 | `None` / `""` / `False` | `""` (empty string) |
 | `"  "` (whitespace only) | `""` (empty string) |
 | `"slack.com"` | `"https://slack.com"` |
@@ -216,7 +213,7 @@ The record rule `woow_service_portal_rule` provides defense-in-depth at the ORM 
 
 | XML ID | Model | Type | Key Features |
 |--------|-------|------|--------------|
-| `woow_service_hub.woow_service_view_kanban` | `woow.service` | `kanban` | `class="o_kanban_mobile"`, `highlight_color="color"`, `<t t-name="card">` with `<aside>` + `<main>`, logo/icon/initial fallback |
+| `woow_service_hub.woow_service_view_kanban` | `woow.service` | `kanban` | `class="o_kanban_mobile"`, `highlight_color="color"`, `<t t-name="card">` with `<aside>` + `<main>`, logo/initial fallback |
 | `woow_service_hub.woow_service_view_form` | `woow.service` | `form` | Header button, `oe_avatar` logo, notebook tabs (General/Sharing/Notes), `<chatter/>` |
 | `woow_service_hub.woow_service_view_list` | `woow.service` | `list` | Uses Odoo 18 `<list>` tag (not `<tree>`) |
 | `woow_service_hub.woow_service_view_search` | `woow.service` | `search` | Fields: name, category_ids, internal_manager_id, url. Group By: Category, Internal Manager |
@@ -236,16 +233,15 @@ The record rule `woow_service_portal_rule` provides defense-in-depth at the ORM 
 +--------------------------------------------------+
 | <aside>              | <main>                     |
 |  [Logo 90x90]        |  Service Name (fs-5, bold) |
-|  OR [FA Icon 90x90]  |  [Category Tags w/ colors] |
-|  OR [Initial 90x90]  |  Manager (if set)          |
+|  OR [Initial 90x90]  |  [Category Tags w/ colors] |
+|                       |  Manager (if set)          |
 |                       |  [Open Service] btn-primary|
 +--------------------------------------------------+
 ```
 
-**Logo/Icon/Initial fallback priority (in Kanban):**
+**Logo/Initial fallback priority (in Kanban):**
 1. `record.logo.raw_value` is truthy -> render `<field name="logo" widget="image">`
-2. `record.icon.value` is truthy -> render `<i class="fa #{record.icon.value}"/>` inside a 90x90 bg-100 box
-3. Neither -> render first letter of name, uppercased, white text on `#00897B` background
+2. No logo -> render first letter of name, uppercased, white text on `#00897B` background
 
 ### 4.4 Form Notebook Tabs
 
@@ -386,11 +382,10 @@ values.update({
 |-------|---------|---------|
 | `.woow_service_card_grid` | `<div>` | CSS Grid container: `repeat(auto-fill, minmax(280px, 1fr))`, gap `1rem` |
 | `.woow_service_card` | `<div>` | Flexbox row card: border `#dee2e6`, border-radius `0.5rem`, hover shadow |
-| `.woow_service_card_avatar` | `<div>` | Logo/icon/initial container |
+| `.woow_service_card_avatar` | `<div>` | Logo/initial container |
 | `.woow_service_card_body` | `<div>` | `flex: 1`, title text |
 | `.woow_service_card_title` | `<a>` | `font-weight: 600`, text-overflow ellipsis, hover color `#00897B` |
 | `.woow_service_card_action` | `<div>` | `flex-shrink: 0`, contains Open button |
-| `.woow_service_card_icon` | `<span>` | FA icon fallback container |
 | `.woow_service_card_initial` | `<span>` | Name initial fallback container |
 | `.woow_service_description` | `<div>` | Detail page: `img { max-width: 100% }` |
 
@@ -434,29 +429,29 @@ values.update({
 
 ### 7.2 Services (18 total)
 
-| # | XML ID | Name | Icon | Color | URL | Categories | Has Logo | Has Icon | Notes |
-|---|--------|------|------|-------|-----|------------|----------|----------|-------|
-| 1 | `service_slack` | Slack | `fa-slack` | 4 | `woowtech.slack.com` | Communication | No | Yes | Active, has notes |
-| 2 | `service_github` | GitHub | `fa-github` | 10 | `github.com/woowtech` | DevOps / Dev Tools | No | Yes | Active |
-| 3 | `service_figma` | Figma | `fa-paint-brush` | 3 | `figma.com` | Design | No | Yes | Active |
-| 4 | `service_jira` | Jira | `fa-tasks` | 2 | `woowtech.atlassian.net` | Project Management | No | Yes | Active |
-| 5 | `service_google_workspace` | Google Workspace | `fa-google` | 1 | `workspace.google.com` | Communication, Storage / Docs | No | Yes | Active |
-| 6 | `service_aws` | AWS Console | `fa-cloud` | 5 | `console.aws.amazon.com` | Cloud / Infra | No | Yes | Active |
-| 7 | `service_grafana` | Grafana | `fa-line-chart` | 6 | `grafana.woowtech.com` | Analytics, DevOps / Dev Tools | No | Yes | Active |
-| 8 | `service_notion` | Notion | `fa-file-text-o` | 7 | `notion.so` | Storage / Docs, Project Management | No | Yes | Trial |
-| 9 | `service_1password` | 1Password | `fa-lock` | 9 | `woowtech.1password.com` | Security | No | Yes | Active |
-| 10 | `service_linear` | Linear | `fa-bolt` | 2 | `linear.app` | Project Management | No | Yes | Trial |
-| 11 | `service_sentry` | Sentry | `fa-bug` | 4 | `woowtech.sentry.io` | DevOps / Dev Tools | No | Yes | Active |
-| 12 | `service_hackmd` | HackMD | `fa-pencil-square-o` | 7 | `hackmd.io` | Storage / Docs | No | Yes | Planned |
-| 13 | `service_odoo` | Odoo ERP | `fa-building` | 8 | `localhost:9103` | Finance, HR / People | No | Yes | Active |
-| 14 | `service_trello` | Trello | `fa-trello` | 2 | `trello.com` | Project Management | No | Yes | Retired |
-| 15 | `service_heroku` | Heroku | `fa-server` | 5 | `dashboard.heroku.com` | Cloud / Infra | No | Yes | Retired |
-| 16 | `service_n8n` | n8n Automation | _(none)_ | 4 | `n8n.woowtech.com` | DevOps / Dev Tools | No | **No** | Tests initial fallback |
-| 17 | `service_miro` | Miro | _(none)_ | 3 | `miro.com` | Design, Project Management | No | **No** | Tests initial fallback |
-| 18 | `service_tailscale` | Tailscale | `fa-shield` | 9 | _(none)_ | Security, Cloud / Infra | No | Yes | **No URL** -- tests UserError |
+| # | XML ID | Name | Color | URL | Categories | Has Logo | Notes |
+|---|--------|------|-------|-----|------------|----------|-------|
+| 1 | `service_slack` | Slack | 4 | `woowtech.slack.com` | Communication | No | Active, has notes |
+| 2 | `service_github` | GitHub | 10 | `github.com/woowtech` | DevOps / Dev Tools | No | Active |
+| 3 | `service_figma` | Figma | 3 | `figma.com` | Design | No | Active |
+| 4 | `service_jira` | Jira | 2 | `woowtech.atlassian.net` | Project Management | No | Active |
+| 5 | `service_google_workspace` | Google Workspace | 1 | `workspace.google.com` | Communication, Storage / Docs | No | Active |
+| 6 | `service_aws` | AWS Console | 5 | `console.aws.amazon.com` | Cloud / Infra | No | Active |
+| 7 | `service_grafana` | Grafana | 6 | `grafana.woowtech.com` | Analytics, DevOps / Dev Tools | No | Active |
+| 8 | `service_notion` | Notion | 7 | `notion.so` | Storage / Docs, Project Management | No | Trial |
+| 9 | `service_1password` | 1Password | 9 | `woowtech.1password.com` | Security | No | Active |
+| 10 | `service_linear` | Linear | 2 | `linear.app` | Project Management | No | Trial |
+| 11 | `service_sentry` | Sentry | 4 | `woowtech.sentry.io` | DevOps / Dev Tools | No | Active |
+| 12 | `service_hackmd` | HackMD | 7 | `hackmd.io` | Storage / Docs | No | Planned |
+| 13 | `service_odoo` | Odoo ERP | 8 | `localhost:9103` | Finance, HR / People | No | Active |
+| 14 | `service_trello` | Trello | 2 | `trello.com` | Project Management | No | Retired |
+| 15 | `service_heroku` | Heroku | 5 | `dashboard.heroku.com` | Cloud / Infra | No | Retired |
+| 16 | `service_n8n` | n8n Automation | 4 | `n8n.woowtech.com` | DevOps / Dev Tools | No | Tests initial fallback |
+| 17 | `service_miro` | Miro | 3 | `miro.com` | Design, Project Management | No | Tests initial fallback |
+| 18 | `service_tailscale` | Tailscale | 9 | _(none)_ | Security, Cloud / Infra | No | **No URL** -- tests UserError |
 
 **Special test data points:**
-- Services 16 & 17 have no icon -- verifies name-initial fallback rendering
+- All 18 demo services have no logo -- they all render with the name-initial fallback
 - Service 18 has no URL -- verifies `UserError` from `action_open_service()`
 
 ---
@@ -479,8 +474,6 @@ values.update({
 | Categories | 分類 | Menu item, field label |
 | Service Name | 服務名稱 | Field label |
 | Service URL | 服務網址 | Field label |
-| Full URL | 完整網址 | Field label |
-| Font Awesome Icon | 圖示 | Field label |
 | Card Color | 卡片顏色 | Field label |
 | Internal Manager | 內部負責人 | Field label |
 | Internal Notes | 內部備註 | Field label |
@@ -510,7 +503,7 @@ values.update({
 3. Fill in:
    - **Service Name** (required)
    - **Service URL** (e.g. `slack.com` -- https is auto-prepended)
-   - **Logo** (upload image, max 256x256) OR **Font Awesome Icon** (e.g. `fa-rocket`)
+   - **Logo** (upload image, max 256x256)
    - **Categories** (select/create tags)
    - **Internal Manager** (select from `hr.employee`)
 4. In the **Sharing** tab, add portal contacts to **Shared With**.
@@ -551,19 +544,19 @@ Technically: `share_partner_ids` is a Many2many to `res.partner`. The portal rec
 
 1. Button calls `action_open_service()` on the `woow.service` record.
 2. Method calls `self.ensure_one()`.
-3. Checks `self.full_url` -- if falsy, raises `UserError(_("No URL configured for this service."))`.
-4. Returns `{"type": "ir.actions.act_url", "url": self.full_url, "target": "new"}`.
-5. Odoo web client opens the URL in a new browser tab.
+3. Calls `self.get_full_url()` to get the normalized URL with `https://` prefix.
+4. If the result is falsy, raises `UserError(_("No URL configured for this service."))`.
+5. Returns `{"type": "ir.actions.act_url", "url": full_url, "target": "new"}`.
+6. Odoo web client opens the URL in a new browser tab.
 
-### Q: How does the logo/icon/initial fallback work?
+### Q: How does the logo/initial fallback work?
 
 **Priority order (checked at render time in QWeb):**
 
 | Priority | Condition | Rendering |
 |----------|-----------|-----------|
 | 1 | `logo` field has data | `<field name="logo" widget="image">` or `<img src="/web/image/...">` |
-| 2 | `icon` field has value | `<i class="fa {icon}"/>` inside styled container |
-| 3 | Neither | First character of `name`, uppercased, white text on `#00897B` background |
+| 2 | No logo | First character of `name`, uppercased, white text on `#00897B` background |
 
 This applies in three contexts with slightly different markup:
 - **Kanban card**: 90x90px containers
@@ -572,13 +565,14 @@ This applies in three contexts with slightly different markup:
 
 ### Q: What URL auto-completion logic is used?
 
-The `_compute_full_url` method:
-1. Takes `rec.url`, defaults to empty string if falsy.
-2. Strips leading/trailing whitespace.
-3. If non-empty and does NOT start with `http://` or `https://`, prepends `https://`.
-4. Sets `rec.full_url` to the result.
+The `get_full_url()` method:
+1. Calls `self.ensure_one()`.
+2. Takes `self.url`, defaults to empty string if falsy.
+3. Strips leading/trailing whitespace.
+4. If non-empty and does NOT start with `http://` or `https://`, prepends `https://`.
+5. Returns the normalized URL string.
 
-**Important**: `full_url` is `store=False` (computed on-the-fly, not stored in DB).
+**Note**: `get_full_url()` is a public method (not a computed field). It is called from `action_open_service()` and directly from QWeb templates (e.g., `s.get_full_url()` in portal templates).
 
 ### Q: How is portal access controlled?
 
@@ -789,7 +783,7 @@ Tests use raw `urllib.request` for JSON-RPC calls (no external dependencies).
 1. Authentication: valid login returns uid, bad password returns False
 2. Setup: assign admin group to admin user
 3. CRUD Categories: create, read, update, delete, verify deletion
-4. CRUD Services: create, read full_url computation, update URL, archive, unarchive, delete
+4. CRUD Services: create, read, verify `get_full_url()` URL normalization, update URL, archive, unarchive, delete
 5. `action_open_service`: returns `ir.actions.act_url` for Slack, raises error for Tailscale (no URL)
 6. Setup test users: create testuser (User group) and portal user
 7. Permission -- User: can read, CANNOT create/delete services or categories
@@ -927,7 +921,7 @@ def _prepare_home_portal_values(self, counters):
 
 ```python
 # Model file
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 # Controller file

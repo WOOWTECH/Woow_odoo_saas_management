@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Cargo ship with containers, 2 colors: teal hull, blue containers -->
+  <!-- Ship hull - trapezoid -->
+  <path d="M6,44 L12,36 L52,36 L58,44 Z" fill="#00897B"/>
+  <!-- Ship hull bottom curve -->
+  <path d="M6,44 Q32,50 58,44" fill="#00897B"/>
+  <!-- Ship deck -->
+  <rect x="14" y="33" width="36" height="4" rx="1" fill="#00897B"/>
+  <!-- Cabin / bridge on right -->
+  <rect x="44" y="24" width="8" height="10" rx="1" fill="#00897B"/>
+  <!-- Smokestack -->
+  <rect x="46" y="18" width="4" height="7" rx="1" fill="#00897B"/>
+  <!-- Smoke puff -->
+  <circle cx="50" cy="15" r="2.5" fill="#00897B" opacity="0.4"/>
+  <circle cx="53" cy="13" r="2" fill="#00897B" opacity="0.25"/>
+  <!-- Containers on deck - blue -->
+  <!-- Bottom row: 3 containers -->
+  <rect x="15" y="25" width="9" height="8" rx="1" fill="#42A5F5"/>
+  <rect x="25" y="25" width="9" height="8" rx="1" fill="#42A5F5"/>
+  <rect x="35" y="25" width="8" height="8" rx="1" fill="#42A5F5"/>
+  <!-- Top row: 2 containers -->
+  <rect x="18" y="16" width="9" height="8" rx="1" fill="#42A5F5"/>
+  <rect x="28" y="16" width="9" height="8" rx="1" fill="#42A5F5"/>
+  <!-- Water ripples -->
+  <path d="M2,50 Q8,46 14,50 Q20,54 26,50 Q32,46 38,50 Q44,54 50,50 Q56,46 62,50" fill="none" stroke="#00897B" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+  <path d="M4,55 Q10,52 16,55 Q22,58 28,55 Q34,52 40,55 Q46,58 52,55 Q58,52 62,55" fill="none" stroke="#00897B" stroke-width="1" opacity="0.25" stroke-linecap="round"/>
+</svg>
