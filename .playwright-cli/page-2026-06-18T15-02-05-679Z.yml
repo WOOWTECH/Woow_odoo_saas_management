@@ -1,0 +1,184 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - button "" [ref=e5] [cursor=pointer]:
+        - generic [ref=e6]: 
+      - menuitem "服務中心" [ref=e38] [cursor=pointer]
+      - menu [ref=e39]:
+        - menuitem "所有服務" [ref=e40] [cursor=pointer]
+        - menuitem "分類" [ref=e41] [cursor=pointer]
+      - menu [ref=e7]:
+        - button "訊息 3" [ref=e21] [cursor=pointer]:
+          - img "訊息" [ref=e10]: 
+          - generic [ref=e11]: "3"
+        - button "活動" [ref=e12] [cursor=pointer]:
+          - img "活動" [ref=e13]: 
+        - button "My Company" [disabled] [ref=e15]:
+          - text: 
+          - generic [ref=e16]: My Company
+        - button "使用者" [ref=e18] [cursor=pointer]:
+          - img "使用者" [ref=e19]
+          - text: 
+  - generic [ref=e42]:
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - button "新增" [ref=e48] [cursor=pointer]
+        - generic [ref=e49]:
+          - generic [ref=e51]: 服務
+          - button "" [ref=e55] [cursor=pointer]:
+            - generic [ref=e56]: 
+      - search [ref=e58]:
+        - search [ref=e59]:
+          - button "搜尋⋯" [ref=e60] [cursor=pointer]:
+            - img [ref=e61]: 
+          - searchbox "搜尋⋯" [active] [ref=e63]
+        - button "" [ref=e64] [cursor=pointer]
+      - generic [ref=e65]:
+        - search [ref=e66]:
+          - navigation "頁面工具" [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: 1-12
+              - text: / 12
+            - generic [ref=e70]:
+              - button "上一頁" [disabled]:
+                - generic: 
+              - button "下一頁" [disabled]:
+                - generic: 
+        - navigation [ref=e71]:
+          - button "" [ref=e72] [cursor=pointer]:
+            - generic [ref=e73]: 
+          - button "" [ref=e74] [cursor=pointer]:
+            - generic [ref=e75]: 
+    - generic [ref=e77]:
+      - article [ref=e78] [cursor=pointer]:
+        - complementary [ref=e79]:
+          - generic [ref=e80]: "1"
+        - main [ref=e81]:
+          - strong [ref=e83]: 1Password
+          - generic "安全" [ref=e87]:
+            - generic [ref=e88]: 安全
+          - button " 開啟服務" [ref=e90]:
+            - generic [ref=e91]: 
+            - text: 開啟服務
+      - article [ref=e92] [cursor=pointer]:
+        - complementary [ref=e93]:
+          - generic [ref=e94]: A
+        - main [ref=e95]:
+          - strong [ref=e97]: AWS Console
+          - generic "雲端與基礎架構" [ref=e101]:
+            - generic [ref=e102]: 雲端與基礎架構
+          - button " 開啟服務" [ref=e104]:
+            - generic [ref=e105]: 
+            - text: 開啟服務
+      - article [ref=e106] [cursor=pointer]:
+        - complementary [ref=e107]:
+          - generic [ref=e108]: D
+        - main [ref=e109]:
+          - strong [ref=e111]: Datadog
+          - generic [ref=e114]:
+            - generic "分析" [ref=e115]:
+              - generic [ref=e116]: 分析
+            - generic "雲端與基礎架構" [ref=e117]:
+              - generic [ref=e118]: 雲端與基礎架構
+          - button " 開啟服務" [ref=e120]:
+            - generic [ref=e121]: 
+            - text: 開啟服務
+      - article [ref=e122] [cursor=pointer]:
+        - complementary [ref=e123]:
+          - generic [ref=e124]: F
+        - main [ref=e125]:
+          - strong [ref=e127]: Figma
+          - generic "設計" [ref=e131]:
+            - generic [ref=e132]: 設計
+          - button " 開啟服務" [ref=e134]:
+            - generic [ref=e135]: 
+            - text: 開啟服務
+      - article [ref=e136] [cursor=pointer]:
+        - complementary [ref=e137]:
+          - generic [ref=e138]: G
+        - main [ref=e139]:
+          - strong [ref=e141]: GitHub
+          - generic "開發" [ref=e145]:
+            - generic [ref=e146]: 開發
+          - button " 開啟服務" [ref=e148]:
+            - generic [ref=e149]: 
+            - text: 開啟服務
+      - article [ref=e150] [cursor=pointer]:
+        - complementary [ref=e151]:
+          - generic [ref=e152]: G
+        - main [ref=e153]:
+          - strong [ref=e155]: Google Workspace
+          - generic [ref=e158]:
+            - generic "文件" [ref=e159]:
+              - generic [ref=e160]: 文件
+            - generic "通訊" [ref=e161]:
+              - generic [ref=e162]: 通訊
+          - button " 開啟服務" [ref=e164]:
+            - generic [ref=e165]: 
+            - text: 開啟服務
+      - article [ref=e166] [cursor=pointer]:
+        - complementary [ref=e167]:
+          - generic [ref=e168]: G
+        - main [ref=e169]:
+          - strong [ref=e171]: Grafana
+          - generic [ref=e174]:
+            - generic "分析" [ref=e175]:
+              - generic [ref=e176]: 分析
+            - generic "雲端與基礎架構" [ref=e177]:
+              - generic [ref=e178]: 雲端與基礎架構
+          - button " 開啟服務" [ref=e180]:
+            - generic [ref=e181]: 
+            - text: 開啟服務
+      - article [ref=e182] [cursor=pointer]:
+        - complementary [ref=e183]:
+          - generic [ref=e184]: J
+        - main [ref=e185]:
+          - strong [ref=e187]: Jira
+          - generic "專案管理" [ref=e191]:
+            - generic [ref=e192]: 專案管理
+          - button " 開啟服務" [ref=e194]:
+            - generic [ref=e195]: 
+            - text: 開啟服務
+      - article [ref=e196] [cursor=pointer]:
+        - complementary [ref=e197]:
+          - generic [ref=e198]: L
+        - main [ref=e199]:
+          - strong [ref=e201]: Linear
+          - generic "專案管理" [ref=e205]:
+            - generic [ref=e206]: 專案管理
+          - button " 開啟服務" [ref=e208]:
+            - generic [ref=e209]: 
+            - text: 開啟服務
+      - article [ref=e210] [cursor=pointer]:
+        - complementary [ref=e211]:
+          - generic [ref=e212]: "N"
+        - main [ref=e213]:
+          - strong [ref=e215]: Notion
+          - generic "文件" [ref=e219]:
+            - generic [ref=e220]: 文件
+          - button " 開啟服務" [ref=e222]:
+            - generic [ref=e223]: 
+            - text: 開啟服務
+      - article [ref=e224] [cursor=pointer]:
+        - complementary [ref=e225]:
+          - generic [ref=e226]: S
+        - main [ref=e227]:
+          - strong [ref=e229]: Sentry
+          - generic [ref=e232]:
+            - generic "分析" [ref=e233]:
+              - generic [ref=e234]: 分析
+            - generic "開發" [ref=e235]:
+              - generic [ref=e236]: 開發
+          - button " 開啟服務" [ref=e238]:
+            - generic [ref=e239]: 
+            - text: 開啟服務
+      - article [ref=e240] [cursor=pointer]:
+        - complementary [ref=e241]:
+          - generic [ref=e242]: S
+        - main [ref=e243]:
+          - strong [ref=e245]: Slack
+          - generic "通訊" [ref=e249]:
+            - generic [ref=e250]: 通訊
+          - button " 開啟服務" [ref=e252]:
+            - generic [ref=e253]: 
+            - text: 開啟服務

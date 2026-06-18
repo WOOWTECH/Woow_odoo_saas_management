@@ -1,0 +1,78 @@
+- generic [ref=e2]:
+  - link "跳至內容" [ref=e3] [cursor=pointer]:
+    - /url: "#wrap"
+  - banner [ref=e4]:
+    - navigation [ref=e5]:
+      - generic [ref=e6]:
+        - link "Logo of My Company" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img "Logo of My Company" [ref=e8]
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - button "Portal User" [ref=e11] [cursor=pointer]
+            - text:  
+  - main [ref=e12]:
+    - list [ref=e15]:
+      - listitem [ref=e16]:
+        - link "首頁" [ref=e17] [cursor=pointer]:
+          - /url: /my/home
+          - generic [ref=e18]: 
+      - listitem [ref=e19]: / 服務
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e25]: A
+        - link "AWS Console" [ref=e27] [cursor=pointer]:
+          - /url: /my/services/305
+        - link " 開啟" [ref=e29] [cursor=pointer]:
+          - /url: https://aws.amazon.com
+          - generic [ref=e30]: 
+          - text: 開啟
+      - generic [ref=e31]:
+        - generic [ref=e33]: F
+        - link "Figma" [ref=e35] [cursor=pointer]:
+          - /url: /my/services/302
+        - link " 開啟" [ref=e37] [cursor=pointer]:
+          - /url: https://figma.com
+          - generic [ref=e38]: 
+          - text: 開啟
+      - generic [ref=e39]:
+        - generic [ref=e41]: G
+        - link "GitHub" [ref=e43] [cursor=pointer]:
+          - /url: /my/services/301
+        - link " 開啟" [ref=e45] [cursor=pointer]:
+          - /url: https://github.com
+          - generic [ref=e46]: 
+          - text: 開啟
+      - generic [ref=e47]:
+        - generic [ref=e49]: G
+        - link "Google Workspace" [ref=e51] [cursor=pointer]:
+          - /url: /my/services/304
+        - link " 開啟" [ref=e53] [cursor=pointer]:
+          - /url: https://workspace.google.com
+          - generic [ref=e54]: 
+          - text: 開啟
+      - generic [ref=e55]:
+        - generic [ref=e57]: J
+        - link "Jira" [ref=e59] [cursor=pointer]:
+          - /url: /my/services/303
+        - link " 開啟" [ref=e61] [cursor=pointer]:
+          - /url: https://atlassian.net
+          - generic [ref=e62]: 
+          - text: 開啟
+      - generic [ref=e63]:
+        - generic [ref=e65]: S
+        - link "Slack" [ref=e67] [cursor=pointer]:
+          - /url: /my/services/300
+        - link " 開啟" [ref=e69] [cursor=pointer]:
+          - /url: https://slack.com
+          - generic [ref=e70]: 
+          - text: 開啟
+  - contentinfo [ref=e71]:
+    - generic [ref=e74]:
+      - generic [ref=e76]: 版權所有 © My Company
+      - generic [ref=e78]:
+        - text: 由
+        - link "Odoo" [ref=e79] [cursor=pointer]:
+          - /url: http://www.odoo.com?utm_source=db&utm_medium=portal
+          - img "Odoo" [ref=e80]
+        - text: 驅動

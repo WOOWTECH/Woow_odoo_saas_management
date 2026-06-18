@@ -1,0 +1,112 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - button "" [ref=e5] [cursor=pointer]:
+        - generic [ref=e6]: 
+      - menuitem "服務中心" [ref=e38] [cursor=pointer]
+      - menu [ref=e39]:
+        - menuitem "所有服務" [ref=e40] [cursor=pointer]
+        - menuitem "分類" [ref=e41] [cursor=pointer]
+      - menu [ref=e7]:
+        - button "訊息 3" [ref=e21] [cursor=pointer]:
+          - img "訊息" [ref=e10]: 
+          - generic [ref=e11]: "3"
+        - button "活動" [ref=e12] [cursor=pointer]:
+          - img "活動" [ref=e13]: 
+        - button "My Company" [disabled] [ref=e15]:
+          - text: 
+          - generic [ref=e16]: My Company
+        - button "使用者" [ref=e18] [cursor=pointer]:
+          - img "使用者" [ref=e19]
+          - text: 
+  - generic [ref=e255]:
+    - generic [ref=e257]:
+      - generic [ref=e258]:
+        - button "新增" [ref=e261] [cursor=pointer]
+        - generic [ref=e262]:
+          - list [ref=e263]:
+            - listitem [ref=e264]:
+              - link "服務" [ref=e265] [cursor=pointer]:
+                - /url: /odoo/action-206
+          - generic [ref=e266]:
+            - generic [ref=e268]: 1Password
+            - button "" [ref=e272] [cursor=pointer]:
+              - generic [ref=e273]: 
+      - search [ref=e276]:
+        - navigation "頁面工具" [ref=e277]:
+          - generic [ref=e278]:
+            - generic [ref=e279]: "1"
+            - text: / 12
+          - generic [ref=e280]:
+            - button "上一頁" [ref=e281] [cursor=pointer]:
+              - generic [ref=e282]: 
+            - button "下一頁" [ref=e283] [cursor=pointer]:
+              - generic [ref=e284]: 
+    - generic [ref=e286]:
+      - generic [ref=e287]:
+        - button " 開啟服務" [ref=e290] [cursor=pointer]:
+          - generic [ref=e291]: 
+          - text: 開啟服務
+        - generic [ref=e292]:
+          - generic [ref=e294]:
+            - button "編輯" [ref=e297] [cursor=pointer]:
+              - generic [ref=e298]: 
+            - img "二進位文件" [ref=e299]
+          - generic [ref=e300]:
+            - generic [ref=e301]: 服務名稱
+            - heading "1Password" [level=1] [ref=e302]:
+              - textbox "服務名稱" [ref=e304]: 1Password
+          - generic [ref=e305]:
+            - generic [ref=e306]:
+              - generic [ref=e307]:
+                - generic [ref=e309]: 服務網址
+                - generic [ref=e312]:
+                  - textbox "服務網址" [ref=e313]:
+                    - /placeholder: 例如 slack.com
+                    - text: 1password.com
+                  - text: 
+              - generic [ref=e314]:
+                - generic [ref=e316]: 卡片顏色
+                - menuitem "紅莓" [ref=e320] [cursor=pointer]
+            - generic [ref=e321]:
+              - generic [ref=e322]:
+                - generic [ref=e324]: 分類
+                - generic [ref=e327]:
+                  - generic "安全" [ref=e328]:
+                    - generic [ref=e329]: 安全
+                    - link "刪除" [ref=e330] [cursor=pointer]:
+                      - /url: "#"
+                      - generic [ref=e331]: 
+                  - combobox "分類" [ref=e335]
+              - generic [ref=e336]:
+                - generic [ref=e338]: 內部負責人
+                - combobox "內部負責人" [ref=e344]
+          - generic [ref=e345]:
+            - list [ref=e347]:
+              - listitem [ref=e348] [cursor=pointer]:
+                - tab "一般" [ref=e349]
+              - listitem [ref=e350] [cursor=pointer]:
+                - tab "共享" [ref=e351]
+              - listitem [ref=e352] [cursor=pointer]:
+                - tab "備註" [ref=e353]
+            - generic [ref=e358]:
+              - generic:
+                - generic:        
+              - generic [ref=e361]: 此服務的公開描述…
+      - generic [ref=e363]:
+        - generic [ref=e365]:
+          - button "發送訊息" [ref=e366] [cursor=pointer]
+          - button "備註" [ref=e367] [cursor=pointer]
+          - button "活動" [ref=e368] [cursor=pointer]
+          - button "搜尋訊息" [ref=e370] [cursor=pointer]:
+            - img [ref=e371]: 
+          - button "附加檔案" [ref=e373] [cursor=pointer]:
+            - generic [ref=e374]: 
+          - button "0" [ref=e376] [cursor=pointer]:
+            - img [ref=e377]: 
+            - superscript: "0"
+          - button "訂閱" [ref=e378] [cursor=pointer]:
+            - generic [ref=e380]: 訂閱
+        - generic [ref=e383]:
+          - generic [ref=e384]: 😶
+          - generic [ref=e385]: 對話空白。
