@@ -224,26 +224,9 @@ msgid "Followers (Partners)"
 msgstr "關注者（夥伴）"
 
 #. module: woow_service_hub
-#: model:ir.model.fields,field_description:woow_service_hub.field_woow_service__icon
-msgid "Font Awesome Icon"
-msgstr "圖示"
-
-#. module: woow_service_hub
-#: model:ir.model.fields,help:woow_service_hub.field_woow_service__icon
-msgid ""
-"Font Awesome class, e.g. 'fa-rocket'. Used as fallback when no logo is set."
-msgstr ""
-"Font Awesome 類別，例如 'fa-rocket'。未設定標誌時作為替代圖示。"
-
-#. module: woow_service_hub
 #: model:ir.model.fields,help:woow_service_hub.field_woow_service__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Font Awesome 圖示，例如 fa-tasks"
-
-#. module: woow_service_hub
-#: model:ir.model.fields,field_description:woow_service_hub.field_woow_service__full_url
-msgid "Full URL"
-msgstr "完整網址"
 
 #. module: woow_service_hub
 #: model_terms:ir.ui.view,arch_db:woow_service_hub.woow_service_view_form
@@ -550,11 +533,6 @@ msgstr "網站訊息"
 #: model:ir.model.fields,help:woow_service_hub.field_woow_service__website_message_ids
 msgid "Website communication history"
 msgstr "網站通訊紀錄"
-
-#. module: woow_service_hub
-#: model_terms:ir.ui.view,arch_db:woow_service_hub.woow_service_view_form
-msgid "e.g. fa-rocket"
-msgstr "例如 fa-rocket"
 
 #. module: woow_service_hub
 #: model_terms:ir.ui.view,arch_db:woow_service_hub.woow_service_view_form

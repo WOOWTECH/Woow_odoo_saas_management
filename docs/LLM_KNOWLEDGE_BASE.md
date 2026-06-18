@@ -29,7 +29,7 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 
 | Feature | Details |
 |---------|---------|
-| Kanban wall | Logo/icon/initial fallback, color tags, one-click launch |
+| Kanban wall | Logo/initial fallback, color tags, one-click launch |
 | Permission model | Admin (CRUD), User (read-only), Portal (shared-only read) |
 | Portal sharing | Share services with external contacts via `share_partner_ids` |
 | Portal pages | `/my/services` (paginated grid), `/my/services/<id>` (detail) |
@@ -38,7 +38,8 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 | Portal pagination | `portal_pager` with step=18 |
 | Record pager | Prev/next navigation on detail page |
 | Chatter | `mail.thread` + `mail.activity.mixin` + portal message thread |
-| URL auto-complete | Auto-prepend `https://` if missing |
+| URL auto-complete | Auto-prepend `https://` if missing (via `get_full_url()`) |
+| URL validation | `_check_url_format` constraint blocks dangerous schemes and malformed URLs |
 | Archive support | Standard Odoo `active` field |
 | Category tags | Color indices for visual classification |
 | Internal manager | Linked to `hr.employee` |
@@ -99,11 +100,9 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 |------|------|---------|----------|---------|-------|----------|-------|
 | `name` | `Char` | - | Yes | - | Yes | Yes | Service display name |
 | `logo` | `Image` | - | No | - | Yes | No | max_width=256, max_height=256 |
-| `icon` | `Char` | - | No | - | Yes | No | Font Awesome class, e.g. `fa-rocket` |
 | `color` | `Integer` | - | No | - | Yes | No | Kanban card color index |
 | `category_ids` | `Many2many` | `woow.service.category` | No | - | Yes | No | relation=`woow_service_category_rel` |
 | `url` | `Char` | - | No | - | Yes | No | Raw user-entered URL |
-| `full_url` | `Char` | - | No | `_compute_full_url` | **No** | No | Auto-prepends `https://` |
 | `active` | `Boolean` | - | No | - | Yes | No | Default=True |
 | `internal_manager_id` | `Many2one` | `hr.employee` | No | - | Yes | Yes | Internal responsible person |
 | `share_partner_ids` | `Many2many` | `res.partner` | No | - | Yes | No | relation=`woow_service_share_partner_rel` |
@@ -112,24 +111,41 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 
 **Inherited fields:** `message_ids`, `message_follower_ids`, `access_url`, `access_token`, `access_warning`
 
+**Constraints:**
+
+| Decorator | Method | Description |
+|-----------|--------|-------------|
+| `@api.constrains("url")` | `_check_url_format` | Validates `url` is well-formed. Accepts `http://`, `https://`, or bare hostnames. Blocks dangerous schemes (`javascript:`, `data:`, `vbscript:`) and malformed values. Raises `ValidationError`. |
+
 **Methods:**
 
 | Method | Return | Description |
 |--------|--------|-------------|
-| `_compute_full_url` | None | Sets `full_url`. Strips whitespace, prepends `https://` if url lacks `http://` or `https://`. |
+| `get_full_url` | `str` | `ensure_one()`. Public method (usable from QWeb). Strips whitespace, prepends `https://` if url lacks `http://` or `https://`. Returns `""` if url is falsy/blank. |
 | `_compute_access_url` | None | Overrides `portal.mixin`. Sets `access_url = f"/my/services/{rec.id}"`. |
-| `action_open_service` | dict | `ensure_one()`. Returns `ir.actions.act_url` with `target='new'`. Raises `UserError` if `full_url` is falsy. |
+| `action_open_service` | dict | `ensure_one()`. Calls `get_full_url()`. Returns `ir.actions.act_url` with `target='new'`. Raises `UserError` if result is falsy. |
 
-**`_compute_full_url` Truth Table:**
+**`get_full_url()` Truth Table:**
 
-| Input `url` | Output `full_url` |
-|-------------|-------------------|
+| Input `url` | Return value |
+|-------------|--------------|
 | `None` / `""` / `False` | `""` |
 | `"  "` (whitespace) | `""` |
 | `"slack.com"` | `"https://slack.com"` |
 | `"  example.com  "` | `"https://example.com"` |
 | `"https://github.com"` | `"https://github.com"` |
 | `"http://insecure.com"` | `"http://insecure.com"` |
+
+**`_check_url_format` Validation Table:**
+
+| Input `url` | Result |
+|-------------|--------|
+| `None` / `""` / `False` | Pass (skipped) |
+| `"slack.com"` | Pass |
+| `"https://github.com"` | Pass |
+| `"javascript:alert(1)"` | `ValidationError` (dangerous scheme) |
+| `"data:text/html,..."` | `ValidationError` (dangerous scheme) |
+| `"not a valid url!!"` | `ValidationError` (malformed) |
 
 ---
 
@@ -210,8 +226,8 @@ Defense in depth (two layers):
 +--------------------------------------------------+
 | <aside>              | <main>                     |
 |  [Logo 90x90]        |  Service Name (fs-5, bold) |
-|  OR [FA Icon 90x90]  |  [Category Tags w/ colors] |
-|  OR [Initial 90x90]  |  Manager (fa-user-o icon)  |
+|  OR [Initial 90x90]  |  [Category Tags w/ colors] |
+|                      |  Manager (fa-user-o icon)  |
 |                      |  [Open Service] btn-primary|
 +--------------------------------------------------+
 ```
@@ -222,13 +238,12 @@ Defense in depth (two layers):
 - Manager line: `<i class="fa fa-user-o me-1" title="Internal Manager"/>`
 - Open button: `name="action_open_service" type="object" class="btn btn-primary btn-sm"`
 
-**Logo/Icon/Initial fallback:**
+**Logo/Initial fallback (2-tier):**
 
 | Priority | Condition | Rendering |
 |----------|-----------|-----------|
 | 1 | `record.logo.raw_value` truthy | `<field name="logo" widget="image">` |
-| 2 | `record.icon.value` truthy | `<i class="fa #{record.icon.value}"/>` in 90x90 bg-100 box |
-| 3 | Neither | First letter uppercased, white on `#00897B` |
+| 2 | No logo | First letter uppercased, white on `#00897B` |
 
 ### 4.4 Form Notebook Tabs
 
@@ -379,7 +394,8 @@ Uses `portal.portal_sidebar` layout:
 
 | Issue | Details |
 |-------|---------|
-| `full_url` is `store=False` | Do NOT query it in SQL or search domains. Use `url` field for searches. |
+| `get_full_url()` is a method, not a field | Not queryable in SQL or search domains. Use `url` field for searches. Call `get_full_url()` in Python/QWeb when you need the scheme-prepended URL. |
+| `_check_url_format` validates on write | Dangerous schemes (`javascript:`, `data:`, `vbscript:`) are blocked at save time. The constraint uses `re` and raises `ValidationError`. |
 | `portal.css` only constrains images | All portal layout is Bootstrap utilities in QWeb, not custom CSS. |
 | Import order | `woow_service_category` must import before `woow_service` (comodel dependency). |
 | `share_partner_ids` is `res.partner` | NOT `res.users`. Portal access is partner-based. |
@@ -399,7 +415,8 @@ Use these for testing/verification:
 | User group creates `woow.service` | MUST fail (ACL: perm_create=0) |
 | User group creates `woow.service.category` | MUST fail (ACL: perm_create=0) |
 | Admin group full CRUD on both models | MUST succeed |
-| `action_open_service()` with falsy `full_url` | MUST raise `UserError` |
+| `action_open_service()` when `get_full_url()` returns `""` | MUST raise `UserError` |
+| `_check_url_format()` with `javascript:alert(1)` URL | MUST raise `ValidationError` |
 | Portal user hits `/my/services/<id>` for unshared service | MUST redirect to `/my` (controller returns `request.redirect("/my")`) |
 | Portal user hits `/my/services/<id>` for non-existent ID | MUST redirect to `/my` (same path — search returns empty) |
 
@@ -547,26 +564,26 @@ access_woow_service_user,woow.service.user,model_woow_service,woow_service_hub_g
 
 ### 10.2 Services (18)
 
-| # | XML ID | Name | Icon | URL | Special |
-|---|--------|------|------|-----|---------|
-| 1 | `service_slack` | Slack | `fa-slack` | `woowtech.slack.com` | - |
-| 2 | `service_github` | GitHub | `fa-github` | `github.com/woowtech` | - |
-| 3 | `service_figma` | Figma | `fa-paint-brush` | `figma.com` | - |
-| 4 | `service_jira` | Jira | `fa-tasks` | `woowtech.atlassian.net` | - |
-| 5 | `service_google_workspace` | Google Workspace | `fa-google` | `workspace.google.com` | - |
-| 6 | `service_aws` | AWS Console | `fa-cloud` | `console.aws.amazon.com` | - |
-| 7 | `service_grafana` | Grafana | `fa-line-chart` | `grafana.woowtech.com` | - |
-| 8 | `service_notion` | Notion | `fa-file-text-o` | `notion.so` | - |
-| 9 | `service_1password` | 1Password | `fa-lock` | `woowtech.1password.com` | - |
-| 10 | `service_linear` | Linear | `fa-bolt` | `linear.app` | - |
-| 11 | `service_sentry` | Sentry | `fa-bug` | `woowtech.sentry.io` | - |
-| 12 | `service_hackmd` | HackMD | `fa-pencil-square-o` | `hackmd.io` | - |
-| 13 | `service_odoo` | Odoo ERP | `fa-building` | `localhost:9103` | - |
-| 14 | `service_trello` | Trello | `fa-trello` | `trello.com` | Retired |
-| 15 | `service_heroku` | Heroku | `fa-server` | `dashboard.heroku.com` | Retired |
-| 16 | `service_n8n` | n8n Automation | _(none)_ | `n8n.woowtech.com` | Tests initial fallback |
-| 17 | `service_miro` | Miro | _(none)_ | `miro.com` | Tests initial fallback |
-| 18 | `service_tailscale` | Tailscale | `fa-shield` | _(none)_ | Tests `UserError` |
+| # | XML ID | Name | URL | Special |
+|---|--------|------|-----|---------|
+| 1 | `service_slack` | Slack | `woowtech.slack.com` | - |
+| 2 | `service_github` | GitHub | `github.com/woowtech` | - |
+| 3 | `service_figma` | Figma | `figma.com` | - |
+| 4 | `service_jira` | Jira | `woowtech.atlassian.net` | - |
+| 5 | `service_google_workspace` | Google Workspace | `workspace.google.com` | - |
+| 6 | `service_aws` | AWS Console | `console.aws.amazon.com` | - |
+| 7 | `service_grafana` | Grafana | `grafana.woowtech.com` | - |
+| 8 | `service_notion` | Notion | `notion.so` | - |
+| 9 | `service_1password` | 1Password | `woowtech.1password.com` | - |
+| 10 | `service_linear` | Linear | `linear.app` | - |
+| 11 | `service_sentry` | Sentry | `woowtech.sentry.io` | - |
+| 12 | `service_hackmd` | HackMD | `hackmd.io` | - |
+| 13 | `service_odoo` | Odoo ERP | `localhost:9103` | - |
+| 14 | `service_trello` | Trello | `trello.com` | Retired |
+| 15 | `service_heroku` | Heroku | `dashboard.heroku.com` | Retired |
+| 16 | `service_n8n` | n8n Automation | `n8n.woowtech.com` | No logo -- tests initial fallback |
+| 17 | `service_miro` | Miro | `miro.com` | No logo -- tests initial fallback |
+| 18 | `service_tailscale` | Tailscale | _(none)_ | Tests `UserError` |
 
 ---
 
@@ -726,8 +743,10 @@ from . import woow_service
 
 ```python
 # Model file
+import re
+
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 # Controller file
 from odoo import http

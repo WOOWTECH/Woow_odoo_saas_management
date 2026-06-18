@@ -9,7 +9,7 @@ WoowTech Service Hub
 Centralise all internal SaaS and web services into a colourful card catalogue.
 
 * Kanban card wall with logos, colour tags and one-click launch
-* Three-tier access control (Admin / User / Hidden)
+* Three-tier access control (Admin / User / Portal)
 * Share selected services with external portal contacts
 * Built-in chatter for per-service discussions
     """,

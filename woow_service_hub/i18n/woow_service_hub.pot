@@ -217,24 +217,8 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: woow_service_hub
-#: model:ir.model.fields,field_description:woow_service_hub.field_woow_service__icon
-msgid "Font Awesome Icon"
-msgstr ""
-
-#. module: woow_service_hub
-#: model:ir.model.fields,help:woow_service_hub.field_woow_service__icon
-msgid ""
-"Font Awesome class, e.g. 'fa-rocket'. Used as fallback when no logo is set."
-msgstr ""
-
-#. module: woow_service_hub
 #: model:ir.model.fields,help:woow_service_hub.field_woow_service__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
-
-#. module: woow_service_hub
-#: model:ir.model.fields,field_description:woow_service_hub.field_woow_service__full_url
-msgid "Full URL"
 msgstr ""
 
 #. module: woow_service_hub
@@ -539,10 +523,6 @@ msgstr ""
 msgid "Website communication history"
 msgstr ""
 
-#. module: woow_service_hub
-#: model_terms:ir.ui.view,arch_db:woow_service_hub.woow_service_view_form
-msgid "e.g. fa-rocket"
-msgstr ""
 
 #. module: woow_service_hub
 #: model_terms:ir.ui.view,arch_db:woow_service_hub.woow_service_view_form

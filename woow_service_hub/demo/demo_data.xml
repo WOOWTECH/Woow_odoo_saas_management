@@ -53,7 +53,6 @@
         <!-- 1. Slack — Communication, Active -->
         <record id="service_slack" model="woow.service">
             <field name="name">Slack</field>
-            <field name="icon">fa-slack</field>
             <field name="color">4</field>
             <field name="url">woowtech.slack.com</field>
 
@@ -66,7 +65,6 @@
         <!-- 2. GitHub — DevOps, Active -->
         <record id="service_github" model="woow.service">
             <field name="name">GitHub</field>
-            <field name="icon">fa-github</field>
             <field name="color">10</field>
             <field name="url">github.com/woowtech</field>
 
@@ -79,7 +77,6 @@
         <!-- 3. Figma — Design, Active -->
         <record id="service_figma" model="woow.service">
             <field name="name">Figma</field>
-            <field name="icon">fa-paint-brush</field>
             <field name="color">3</field>
             <field name="url">figma.com</field>
 
@@ -91,7 +88,6 @@
         <!-- 4. Jira — Project Management, Active -->
         <record id="service_jira" model="woow.service">
             <field name="name">Jira</field>
-            <field name="icon">fa-tasks</field>
             <field name="color">2</field>
             <field name="url">woowtech.atlassian.net</field>
 
@@ -103,7 +99,6 @@
         <!-- 5. Google Workspace — Communication + Storage, Active -->
         <record id="service_google_workspace" model="woow.service">
             <field name="name">Google Workspace</field>
-            <field name="icon">fa-google</field>
             <field name="color">1</field>
             <field name="url">workspace.google.com</field>
 
@@ -116,7 +111,6 @@
         <!-- 6. AWS Console — Cloud, Active -->
         <record id="service_aws" model="woow.service">
             <field name="name">AWS Console</field>
-            <field name="icon">fa-cloud</field>
             <field name="color">5</field>
             <field name="url">console.aws.amazon.com</field>
 
@@ -129,7 +123,6 @@
         <!-- 7. Grafana — Analytics + DevOps, Active -->
         <record id="service_grafana" model="woow.service">
             <field name="name">Grafana</field>
-            <field name="icon">fa-line-chart</field>
             <field name="color">6</field>
             <field name="url">grafana.woowtech.com</field>
 
@@ -141,7 +134,6 @@
         <!-- 8. Notion — Storage/Docs + Project Mgmt, Trial -->
         <record id="service_notion" model="woow.service">
             <field name="name">Notion</field>
-            <field name="icon">fa-file-text-o</field>
             <field name="color">7</field>
             <field name="url">notion.so</field>
 
@@ -154,7 +146,6 @@
         <!-- 9. 1Password — Security, Active -->
         <record id="service_1password" model="woow.service">
             <field name="name">1Password</field>
-            <field name="icon">fa-lock</field>
             <field name="color">9</field>
             <field name="url">woowtech.1password.com</field>
 
@@ -166,7 +157,6 @@
         <!-- 10. Linear — Project Management, Trial -->
         <record id="service_linear" model="woow.service">
             <field name="name">Linear</field>
-            <field name="icon">fa-bolt</field>
             <field name="color">2</field>
             <field name="url">linear.app</field>
 
@@ -179,7 +169,6 @@
         <!-- 11. Sentry — DevOps, Active -->
         <record id="service_sentry" model="woow.service">
             <field name="name">Sentry</field>
-            <field name="icon">fa-bug</field>
             <field name="color">4</field>
             <field name="url">woowtech.sentry.io</field>
 
@@ -191,7 +180,6 @@
         <!-- 12. HackMD — Storage/Docs, Planned -->
         <record id="service_hackmd" model="woow.service">
             <field name="name">HackMD</field>
-            <field name="icon">fa-pencil-square-o</field>
             <field name="color">7</field>
             <field name="url">hackmd.io</field>
 
@@ -203,7 +191,6 @@
         <!-- 13. Odoo — ERP/Finance/HR, Active -->
         <record id="service_odoo" model="woow.service">
             <field name="name">Odoo ERP</field>
-            <field name="icon">fa-building</field>
             <field name="color">8</field>
             <field name="url">localhost:9103</field>
 
@@ -216,7 +203,6 @@
         <!-- 14. Trello — Project Management, Retired -->
         <record id="service_trello" model="woow.service">
             <field name="name">Trello</field>
-            <field name="icon">fa-trello</field>
             <field name="color">2</field>
             <field name="url">trello.com</field>
 
@@ -229,7 +215,6 @@
         <!-- 15. Heroku — Cloud, Retired -->
         <record id="service_heroku" model="woow.service">
             <field name="name">Heroku</field>
-            <field name="icon">fa-server</field>
             <field name="color">5</field>
             <field name="url">dashboard.heroku.com</field>
 
@@ -264,7 +249,6 @@
         <!-- 18. Tailscale — Security + Cloud, Planned (no URL — tests UserError) -->
         <record id="service_tailscale" model="woow.service">
             <field name="name">Tailscale</field>
-            <field name="icon">fa-shield</field>
             <field name="color">9</field>
 
             <field name="category_ids"

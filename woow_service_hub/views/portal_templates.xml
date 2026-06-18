@@ -64,18 +64,12 @@
                                 <a t-attf-href="/my/services/#{s.id}"
                                    class="stretched-link"/>
 
-                                <!-- Logo / Icon / Initial -->
+                                <!-- Logo / Initial -->
                                 <div class="o_portal_icon flex-shrink-0">
                                     <t t-if="s.logo">
                                         <img t-attf-src="/web/image/woow.service/#{s.id}/logo/48x48"
                                              class="rounded" alt="Logo"
                                              style="width:48px;height:48px;object-fit:cover;"/>
-                                    </t>
-                                    <t t-elif="s.icon">
-                                        <span class="rounded bg-light d-inline-flex align-items-center justify-content-center"
-                                              style="width:48px;height:48px;font-size:1.5rem;">
-                                            <i t-attf-class="fa #{s.icon}"/>
-                                        </span>
                                     </t>
                                     <t t-else="">
                                         <span class="rounded d-inline-flex align-items-center justify-content-center text-white fw-bold"
@@ -100,8 +94,9 @@
                                 </div>
 
                                 <!-- Open button (above stretched-link via z-index) -->
-                                <t t-if="s.full_url">
-                                    <a t-att-href="s.full_url" target="_blank" role="button"
+                                <t t-set="s_full_url" t-value="s.get_full_url()"/>
+                                <t t-if="s_full_url">
+                                    <a t-att-href="s_full_url" target="_blank" role="button"
                                        class="btn btn-secondary btn-sm flex-shrink-0 position-relative d-inline-flex align-items-center justify-content-center gap-1"
                                        style="z-index:2;">
                                         <i class="fa fa-external-link me-1"/>
@@ -156,12 +151,6 @@
                                              class="rounded" alt="Logo"
                                              style="width:80px;height:80px;object-fit:cover;"/>
                                     </t>
-                                    <t t-elif="service.icon">
-                                        <span class="rounded bg-light d-inline-flex align-items-center justify-content-center"
-                                              style="width:80px;height:80px;font-size:2.5rem;">
-                                            <i t-attf-class="fa #{service.icon}"/>
-                                        </span>
-                                    </t>
                                     <t t-else="">
                                         <span class="rounded d-inline-flex align-items-center justify-content-center text-white fw-bold"
                                               style="width:80px;height:80px;font-size:2rem;background-color:#00897B;">
@@ -193,8 +182,9 @@
 
                             <!-- Action Button -->
                             <div class="d-flex flex-column gap-2">
-                                <t t-if="service.full_url">
-                                    <a t-att-href="service.full_url" target="_blank" role="button"
+                                <t t-set="svc_full_url" t-value="service.get_full_url()"/>
+                                <t t-if="svc_full_url">
+                                    <a t-att-href="svc_full_url" target="_blank" role="button"
                                        class="btn btn-secondary d-inline-flex align-items-center justify-content-center gap-1">
                                         <i class="fa fa-external-link me-1"/>
                                         <span>Open Service</span>
@@ -222,8 +212,8 @@
                                     </h3>
                                 </div>
                                 <div class="col-auto">
-                                    <t t-if="service.full_url">
-                                        <a t-att-href="service.full_url" target="_blank" role="button"
+                                    <t t-if="svc_full_url">
+                                        <a t-att-href="svc_full_url" target="_blank" role="button"
                                            class="btn btn-secondary btn-sm d-none d-lg-inline-flex align-items-center justify-content-center gap-1">
                                             <i class="fa fa-external-link me-1"/>
                                             <span>Open Service</span>
