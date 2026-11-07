@@ -1,6 +1,6 @@
 {
     "name": "WoowTech Service Hub",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "category": "Productivity",
     "summary": "Internal service portal — browse, launch, and share SaaS/web services",
     "description": """

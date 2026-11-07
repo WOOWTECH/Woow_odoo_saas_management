@@ -375,7 +375,7 @@ odoo -d your_database -u base --stop-after-init
 | `internal_manager_id` | `Many2one` | 連結至 `hr.employee` |
 | `share_partner_ids` | `Many2many` | 連結至 `res.partner`（入口網站共享） |
 | `description` | `Html` | 公開描述（顯示在入口網站） |
-| `notes` | `Text` | 內部備註 |
+| `notes` | `Text` | 內部備註（僅 Service Hub 使用者群組可讀，入口網站使用者讀不到） |
 
 **繼承：** `mail.thread`、`mail.activity.mixin`、`portal.mixin`
 
