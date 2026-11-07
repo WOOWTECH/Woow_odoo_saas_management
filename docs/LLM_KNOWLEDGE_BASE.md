@@ -107,15 +107,17 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 | `internal_manager_id` | `Many2one` | `hr.employee` | No | - | Yes | Yes | Internal responsible person |
 | `share_partner_ids` | `Many2many` | `res.partner` | No | - | Yes | No | relation=`woow_service_share_partner_rel` |
 | `description` | `Html` | - | No | - | Yes | No | Public description |
-| `notes` | `Text` | - | No | - | Yes | No | Internal notes (not shown on portal) |
+| `notes` | `Text` | - | No | - | Yes | No | Internal notes. `groups=woow_service_hub_group_user`: portal users get `AccessError` if they request it via RPC and it is omitted from default reads |
 
 **Inherited fields:** `message_ids`, `message_follower_ids`, `access_url`, `access_token`, `access_warning`
+
+`write()` rotates `access_token` whenever a partner is removed from `share_partner_ids`, so chatter tokens/hashes held by un-shared partners stop working.
 
 **Constraints:**
 
 | Decorator | Method | Description |
 |-----------|--------|-------------|
-| `@api.constrains("url")` | `_check_url_format` | Validates `url` is well-formed. Accepts `http://`, `https://`, or bare hostnames. Blocks dangerous schemes (`javascript:`, `data:`, `vbscript:`) and malformed values. Raises `ValidationError`. |
+| `@api.constrains("url")` | `_check_url_format` | Validates `url` is well-formed. Validates on create and write. Accepts `http://`, `https://`, or bare hostnames (optionally `host:port`). Any other explicit scheme (`javascript:`, `data:`, `vbscript:`, `ftp:`, `mailto:`, `file:` ...) and malformed values raise `ValidationError`. |
 
 **Methods:**
 
@@ -145,6 +147,8 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 | `"https://github.com"` | Pass |
 | `"javascript:alert(1)"` | `ValidationError` (dangerous scheme) |
 | `"data:text/html,..."` | `ValidationError` (dangerous scheme) |
+| `"localhost:9103"` | Pass (host:port) |
+| `"ftp://files.example.com"` / `"mailto:a@b.c"` | `ValidationError` (only http/https) |
 | `"not a valid url!!"` | `ValidationError` (malformed) |
 
 ---
@@ -395,7 +399,7 @@ Uses `portal.portal_sidebar` layout:
 | Issue | Details |
 |-------|---------|
 | `get_full_url()` is a method, not a field | Not queryable in SQL or search domains. Use `url` field for searches. Call `get_full_url()` in Python/QWeb when you need the scheme-prepended URL. |
-| `_check_url_format` validates on write | Dangerous schemes (`javascript:`, `data:`, `vbscript:`) are blocked at save time. The constraint uses `re` and raises `ValidationError`. |
+| `_check_url_format` validates on create/write | Only `http`/`https` (or a bare host) is allowed; every other scheme is blocked at save time. The constraint uses `re` and raises `ValidationError`. |
 | `portal.css` only constrains images | All portal layout is Bootstrap utilities in QWeb, not custom CSS. |
 | Import order | `woow_service_category` must import before `woow_service` (comodel dependency). |
 | `share_partner_ids` is `res.partner` | NOT `res.users`. Portal access is partner-based. |

@@ -100,7 +100,7 @@
                                 <field name="share_partner_ids" widget="many2many_tags"/>
                             </group>
                         </page>
-                        <page string="Notes" name="notes">
+                        <page string="Notes" name="notes" groups="woow_service_hub.woow_service_hub_group_user">
                             <field name="notes" placeholder="Internal notes…"/>
                         </page>
                     </notebook>
