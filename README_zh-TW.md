@@ -56,7 +56,7 @@
 - **看板卡片牆** — 視覺化卡片，帶有 Logo/圖示備選方案、彩色分類標籤和「開啟服務」按鈕
 - **清單與表單視圖** — 完整 CRUD，網址自動加上 `https://` 前綴、Font Awesome 圖示選擇器、圖片上傳
 - **分類標籤** — 多對多彩色標籤系統，依類型組織服務
-- **內部負責人** — 為每個服務指定一位 `hr.employee` 負責人
+- **內部負責人** — 為每個服務指定一位內部使用者（`res.users`）當負責人
 - **對話串整合** — `mail.thread` + `mail.activity.mixin`，支援逐筆服務的討論和活動追蹤
 - **封存/取消封存** — 標準 Odoo active 旗標，支援軟刪除
 
@@ -134,7 +134,7 @@ erDiagram
         bool active "封存旗標"
         html description "公開描述"
         text notes "內部備註"
-        int internal_manager_id FK "hr.employee"
+        int internal_manager_id FK "res.users"
     }
 
     WOOW_SERVICE_CATEGORY {
@@ -143,9 +143,9 @@ erDiagram
         int color "顏色索引"
     }
 
-    HR_EMPLOYEE {
+    RES_USERS {
         int id PK
-        varchar name
+        varchar login
     }
 
     RES_PARTNER {
@@ -154,7 +154,7 @@ erDiagram
     }
 
     WOOW_SERVICE ||--o{ WOOW_SERVICE_CATEGORY : "category_ids（多對多）"
-    WOOW_SERVICE }o--|| HR_EMPLOYEE : "internal_manager_id"
+    WOOW_SERVICE }o--|| RES_USERS : "internal_manager_id"
     WOOW_SERVICE ||--o{ RES_PARTNER : "share_partner_ids（多對多）"
 ```
 
@@ -218,7 +218,6 @@ flowchart TD
 |------|------|
 | `mail` | 對話串、活動追蹤、訊息討論串 |
 | `portal` | 入口網站框架、portal.mixin、存取令牌 |
-| `hr` | 員工模型，用於指定內部負責人 |
 
 ### 安裝步驟
 
@@ -312,7 +311,7 @@ odoo -d your_database -u base --stop-after-init
    - **圖示** — Font Awesome 類別名稱（如 `fa-slack`、`fa-github`）
    - **Logo** — 上傳自訂圖片（最大 256×256）
    - **分類** — 選擇或建立彩色標籤
-   - **內部負責人** — 指定一位負責的員工
+   - **內部負責人** — 指定一位負責的內部使用者
 
 ### 與入口網站用戶共享
 
@@ -372,7 +371,7 @@ odoo -d your_database -u base --stop-after-init
 | `full_url` | `Char` | 計算欄位：自動加上 `https://` 前綴 |
 | `active` | `Boolean` | 封存旗標（預設：True） |
 | `category_ids` | `Many2many` | 連結至 `woow.service.category` |
-| `internal_manager_id` | `Many2one` | 連結至 `hr.employee` |
+| `internal_manager_id` | `Many2one` | 連結至 `res.users`（僅限內部使用者） |
 | `share_partner_ids` | `Many2many` | 連結至 `res.partner`（入口網站共享） |
 | `description` | `Html` | 公開描述（顯示在入口網站） |
 | `notes` | `Text` | 內部備註（僅 Service Hub 使用者群組可讀，入口網站使用者讀不到） |
@@ -423,6 +422,11 @@ python -m pytest tests/test_playwright.py -v
 ---
 
 ## 更新日誌
+
+### 18.0.1.1.0
+
+- 內部負責人改為連結內部使用者（`res.users`），不再使用 `hr.employee`；模組不再依賴 `hr`（員工 app）
+- 升級：既有值自動換成該員工綁定的使用者；沒有使用者帳號的員工會清空並寫進 log。`hr` 不會自動移除，沒有其他模組需要時可自行解除安裝
 
 ### 18.0.1.0.0
 
