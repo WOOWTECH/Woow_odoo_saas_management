@@ -56,7 +56,7 @@
 - **Kanban Card Wall** — Visual cards with logo/icon fallback, colour-coded categories, and "Open Service" button
 - **List & Form Views** — Full CRUD with URL auto-prefixing (`https://`), Font Awesome icon picker, and image upload
 - **Category Tags** — Coloured tag system (Many2many) for organising services by type
-- **Internal Manager** — Assign an `hr.employee` as the responsible person for each service
+- **Internal Manager** — Assign an internal user (`res.users`) as the responsible person for each service
 - **Chatter Integration** — `mail.thread` + `mail.activity.mixin` for per-service discussions and activity tracking
 - **Archive/Unarchive** — Standard Odoo active flag for soft-deleting services
 
@@ -134,7 +134,7 @@ erDiagram
         bool active "Archive flag"
         html description "Public description"
         text notes "Internal notes"
-        int internal_manager_id FK "hr.employee"
+        int internal_manager_id FK "res.users"
     }
 
     WOOW_SERVICE_CATEGORY {
@@ -143,9 +143,9 @@ erDiagram
         int color "Colour index"
     }
 
-    HR_EMPLOYEE {
+    RES_USERS {
         int id PK
-        varchar name
+        varchar login
     }
 
     RES_PARTNER {
@@ -154,7 +154,7 @@ erDiagram
     }
 
     WOOW_SERVICE ||--o{ WOOW_SERVICE_CATEGORY : "category_ids (M2M)"
-    WOOW_SERVICE }o--|| HR_EMPLOYEE : "internal_manager_id"
+    WOOW_SERVICE }o--|| RES_USERS : "internal_manager_id"
     WOOW_SERVICE ||--o{ RES_PARTNER : "share_partner_ids (M2M)"
 ```
 
@@ -220,7 +220,6 @@ This module depends on the following Odoo modules:
 |--------|---------|
 | `mail` | Chatter, activity tracking, message threads |
 | `portal` | Portal framework, portal.mixin, access tokens |
-| `hr` | Employee model for internal manager assignment |
 
 ### Install Steps
 
@@ -314,7 +313,7 @@ Service detail page with breadcrumb navigation, large icon, "Open Service" butto
    - **Icon** — Font Awesome class name (e.g. `fa-slack`, `fa-github`)
    - **Logo** — Upload a custom image (256×256 max)
    - **Categories** — Select or create colour-coded tags
-   - **Internal Manager** — Assign a responsible employee
+   - **Internal Manager** — Assign a responsible internal user
 
 ### Sharing with Portal Users
 
@@ -374,7 +373,7 @@ Service detail page with breadcrumb navigation, large icon, "Open Service" butto
 | `full_url` | `Char` | Computed: auto-prefixed with `https://` |
 | `active` | `Boolean` | Archive flag (default: True) |
 | `category_ids` | `Many2many` | Links to `woow.service.category` |
-| `internal_manager_id` | `Many2one` | Links to `hr.employee` |
+| `internal_manager_id` | `Many2one` | Links to `res.users` (internal users only) |
 | `share_partner_ids` | `Many2many` | Links to `res.partner` (portal sharing) |
 | `description` | `Html` | Public description (shown on portal) |
 | `notes` | `Text` | Internal notes |
@@ -425,6 +424,11 @@ python -m pytest tests/test_playwright.py -v
 ---
 
 ## Changelog
+
+### 18.0.1.1.0
+
+- Internal Manager links to an internal user (`res.users`) instead of `hr.employee`; the module no longer depends on `hr` (Employees app)
+- Upgrade: existing values move to the employee's linked user; employees without a user account are cleared and logged. `hr` stays installed — uninstall it separately if nothing else needs it
 
 ### 18.0.1.0.0
 

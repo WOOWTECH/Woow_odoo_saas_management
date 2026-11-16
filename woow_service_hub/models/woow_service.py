@@ -112,9 +112,13 @@ class WoowService(models.Model):
     # ------------------------------------------------------------------
     # Internal management
     # ------------------------------------------------------------------
+    # res.users (internal users only) rather than hr.employee, so the
+    # module does not pull in the Employees app; 18.0.1.1.0 pre-migrate
+    # maps existing employee values to their linked users.
     internal_manager_id = fields.Many2one(
-        comodel_name="hr.employee",
+        comodel_name="res.users",
         string="Internal Manager",
+        domain=[("share", "=", False)],
         tracking=True,
     )
 

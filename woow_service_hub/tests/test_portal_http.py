@@ -39,6 +39,12 @@ class TestPortalPages(ServiceHubFixtureMixin, HttpCase):
         self.assertIn("Public description", res.text)
         self.assertNotIn(NOTES_SECRET, res.text)
 
+    def test_my_service_detail_shows_manager(self):
+        self.service.internal_manager_id = self.hub_user
+        res = self.url_open(f"/my/services/{self.service.id}")
+        self.assertEqual(res.status_code, 200)
+        self.assertIn("Svc Hub User", res.text)
+
     def test_unshared_detail_redirects(self):
         res = self.url_open(f"/my/services/{self.private_service.id}", allow_redirects=False)
         self.assertIn(res.status_code, (302, 303))

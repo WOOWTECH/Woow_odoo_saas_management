@@ -1,6 +1,6 @@
 ---
 module: woow_service_hub
-version: 18.0.1.0.0
+version: 18.0.1.1.0
 odoo_version: 18.0
 license: LGPL-3
 author: WoowTech
@@ -8,7 +8,7 @@ website: https://woowtech.com
 category: Productivity
 application: true
 auto_install: false
-dependencies: [mail, portal, hr]
+dependencies: [mail, portal]
 models: [woow.service, woow.service.category]
 portal_routes: [/my/services, /my/services/<int:service_id>]
 security_groups: [woow_service_hub_group_user, woow_service_hub_group_admin]
@@ -42,7 +42,7 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 | URL validation | `_check_url_format` constraint blocks dangerous schemes and malformed URLs |
 | Archive support | Standard Odoo `active` field |
 | Category tags | Color indices for visual classification |
-| Internal manager | Linked to `hr.employee` |
+| Internal manager | Linked to `res.users` (internal users only) |
 | i18n | zh_TW (Traditional Chinese) translations |
 
 ### 1.2 Boundaries (Anti-Features)
@@ -104,7 +104,7 @@ WoowTech Service Hub centralizes internal SaaS/web services into a card catalogu
 | `category_ids` | `Many2many` | `woow.service.category` | No | - | Yes | No | relation=`woow_service_category_rel` |
 | `url` | `Char` | - | No | - | Yes | No | Raw user-entered URL |
 | `active` | `Boolean` | - | No | - | Yes | No | Default=True |
-| `internal_manager_id` | `Many2one` | `hr.employee` | No | - | Yes | Yes | Internal responsible person |
+| `internal_manager_id` | `Many2one` | `res.users` | No | - | Yes | Yes | Internal responsible person; domain `share = False` |
 | `share_partner_ids` | `Many2many` | `res.partner` | No | - | Yes | No | relation=`woow_service_share_partner_rel` |
 | `description` | `Html` | - | No | - | Yes | No | Public description |
 | `notes` | `Text` | - | No | - | Yes | No | Internal notes. `groups=woow_service_hub_group_user`: portal users get `AccessError` if they request it via RPC and it is omitted from default reads |

@@ -1,6 +1,6 @@
 {
     "name": "WoowTech Service Hub",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.1.0",
     "category": "Productivity",
     "summary": "Internal service portal — browse, launch, and share SaaS/web services",
     "description": """
@@ -19,7 +19,6 @@ Centralise all internal SaaS and web services into a colourful card catalogue.
     "depends": [
         "mail",
         "portal",
-        "hr",
     ],
     "data": [
         # security — groups must load before ACL and rules
