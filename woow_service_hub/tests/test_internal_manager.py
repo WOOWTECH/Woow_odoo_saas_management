@@ -1,6 +1,8 @@
 import importlib.util
 import os
 
+from lxml import etree
+
 from odoo.modules.module import get_module_path
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
@@ -57,6 +59,12 @@ class TestInternalManager(ServiceHubFixtureMixin, TransactionCase):
         self.assertEqual(self.service.internal_manager_id, self.hub_user)
         row = self.service.with_user(self.portal_user).read(["internal_manager_id"])[0]
         self.assertEqual(row["internal_manager_id"], (self.hub_user.id, "Svc Hub User"))
+
+    def test_form_does_not_offer_creating_users(self):
+        """Quick create would call res.users.name_create (no login -> error)."""
+        arch = self.env["woow.service"].get_views([(False, "form")])["views"]["form"]["arch"]
+        node = etree.fromstring(arch).xpath("//field[@name='internal_manager_id']")[0]
+        self.assertIn("'no_create': True", node.get("options", ""))
 
     def test_pre_migrate_maps_employees_to_users(self):
         cr = self.env.cr
